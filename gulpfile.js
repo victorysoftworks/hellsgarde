@@ -17,5 +17,5 @@ gulp.task('build', async function() {
       .pipe(dedupe())
       .pipe(concat('hellsgarde.js'))
       .on('error', console.error.bind(console))
-      .pipe(gulp.dest('dist/js'))
+      .pipe(gulp.dest('build/js'))
 })

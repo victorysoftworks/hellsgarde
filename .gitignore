@@ -28,3 +28,6 @@ Temporary Items
 
 # npm
 node_modules
+
+# Gulp
+build
