@@ -5,6 +5,8 @@
   "homepage": "https://github.com/victorysoftworks/hellsgarde",
   "author": "Sersa Victory <sersa@victorysoftworks.com>",
   "dependencies": {
-    "gulp": "^4.0.2"
+    "gulp": "^4.0.2",
+    "gulp-concat-util": "^0.5.5",
+    "gulp-dedupe": "0.0.2"
   }
 }
