@@ -32,7 +32,7 @@ jobs:
           FTP_USERNAME: ${{ secrets.FTP_USER }}
           FTP_PASSWORD: ${{ secrets.FTP_PASS }}
           LOCAL_DIR: build
-          REMOTE_DIR: home/dh_j2n9av/victorysoftworks.com/bin/hellsgarde/dev
+          REMOTE_DIR: victorysoftworks.com/bin/hellsgarde/dev
           METHOD: sftp
           PORT: 22
           ARGS: --verbose
