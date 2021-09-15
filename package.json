@@ -6,7 +6,7 @@
   "author": "Sersa Victory <sersa@victorysoftworks.com>",
   "scripts": {
     "start": "npm run build && cd ./build && php -S localhost:8001",
-    "build": "rm -r ./build && mkdir -p ./build/js && gulp build && cp -R ./src/index.html ./build/index.html && cp -R ./data ./build/data"
+    "build": "if [ -d ./build ]; then rm -r ./build; fi && mkdir -p ./build/js && gulp build && cp -R ./src/index.html ./build/index.html && cp -R ./data ./build/data"
   },
   "dependencies": {
     "gulp": "^4.0.2",
