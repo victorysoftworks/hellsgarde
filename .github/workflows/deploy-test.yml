@@ -32,6 +32,6 @@ jobs:
           FTP_USERNAME: ${{ secrets.FTP_USER }}
           FTP_PASSWORD: ${{ secrets.FTP_PASS }}
           LOCAL_DIR: build
-          SERVER_DIR: /home/dh_j2n9av/victorysoftworks.com/bin/hellsgarde/dev
+          SERVER_DIR: hellsgarde-test
           METHOD: sftp
           PORT: 22
