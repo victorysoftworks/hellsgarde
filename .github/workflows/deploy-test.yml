@@ -1,4 +1,4 @@
-name: Deploy Test
+name: Deploy - Test
 
 on:
   push:
@@ -7,6 +7,7 @@ on:
 
 jobs:
   deploy:
+    name: 🚀 Deploy test version of game
     runs-on: ubuntu-latest
     steps:
       - name: 🚚 Get latest code
