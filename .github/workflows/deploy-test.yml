@@ -32,7 +32,6 @@ jobs:
           FTP_USERNAME: ${{ secrets.FTP_USER }}
           FTP_PASSWORD: ${{ secrets.FTP_PASS }}
           LOCAL_DIR: build
-          SERVER_DIR: hellsgarde-test
+          SERVER_DIR: hellsgardeTest
           METHOD: sftp
           PORT: 22
-          ARGS: --dry-run
