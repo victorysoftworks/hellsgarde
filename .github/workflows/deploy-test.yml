@@ -26,11 +26,12 @@ jobs:
         run: npm run build
       
       - name: 📁 Upload files
-        uses: SamKirkland/FTP-Deploy-Action@4.1.0
+        uses: SamKirkland/FTP-Deploy-Action@2.0.0
         with:
           server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASS }}
+          protocol: ftps
           port: 22
           local-dir: ./build/
           server-dir: /home/dh_j2n9av/victorysoftworks.com/bin/hellsgarde/dev/
