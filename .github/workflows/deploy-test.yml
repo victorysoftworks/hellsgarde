@@ -7,7 +7,7 @@ on:
 
 jobs:
   deploy:
-    name: 🚀 Deploy test version of game
+    name: 👩‍🔧 Deploy test version of game
     runs-on: ubuntu-latest
     steps:
       - name: 🚚 Get latest code
@@ -27,11 +27,11 @@ jobs:
       
       - name: 📁 Upload files
         uses: SamKirkland/FTP-Deploy-Action@2.0.0
-        with:
-          server: ${{ secrets.FTP_HOST }}
-          username: ${{ secrets.FTP_USER }}
-          password: ${{ secrets.FTP_PASS }}
-          protocol: ftps
-          port: 22
-          local-dir: ./build/
-          server-dir: /home/dh_j2n9av/victorysoftworks.com/bin/hellsgarde/dev/
+        env:
+          FTP_SERVER: ${{ secrets.FTP_HOST }}
+          FTP_USERNAME: ${{ secrets.FTP_USER }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASS }}
+          LOCAL_DIR: ./build/
+          SERVER_DIR: /home/dh_j2n9av/victorysoftworks.com/bin/hellsgarde/dev/
+          METHOD: sftp
+          PORT: 22
