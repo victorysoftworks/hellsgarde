@@ -35,3 +35,4 @@ jobs:
           SERVER_DIR: hellsgarde-test
           METHOD: sftp
           PORT: 22
+          ARGS: --dry-run
