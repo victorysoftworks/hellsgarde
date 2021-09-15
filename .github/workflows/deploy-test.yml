@@ -35,3 +35,4 @@ jobs:
           SERVER_DIR: home/dh_j2n9av/victorysoftworks.com/bin/hellsgarde/dev
           METHOD: sftp
           PORT: 22
+          ARGS: --verbose
