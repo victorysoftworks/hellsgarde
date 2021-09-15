@@ -7,7 +7,7 @@ on:
 
 jobs:
   deploy:
-    name: 🧚 Deploy test version of game
+    name: 👩‍🔧 Deploy test version of game
     runs-on: ubuntu-latest
     steps:
       - name: 🚚 Get latest code
