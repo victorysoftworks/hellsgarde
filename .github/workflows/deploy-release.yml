@@ -1,0 +1,38 @@
+name: Deploy - Release
+
+on:
+  push:
+    branches:
+      - 'master'
+
+jobs:
+  deploy:
+    name: 👩‍🔧 Deploy release version of game
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v1
+      
+      - name: ⚙️ Set up Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+          registry-url: https://registry.npmjs.org/
+      
+      - name: 📦 Install dependencies
+        run: npm ci
+      
+      - name: 🛠️ Build game
+        run: npm run build
+      
+      - name: 📁 Upload files
+        uses: SamKirkland/FTP-Deploy-Action@2.0.0
+        env:
+          FTP_SERVER: ${{ secrets.FTP_HOST }}
+          FTP_USERNAME: ${{ secrets.FTP_USER }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASS }}
+          LOCAL_DIR: build
+          REMOTE_DIR: victorysoftworks.com/bin/hellsgarde/release
+          METHOD: sftp
+          PORT: 22
+          ARGS: --verbose
