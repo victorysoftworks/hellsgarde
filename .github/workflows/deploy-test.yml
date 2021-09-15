@@ -31,5 +31,7 @@ jobs:
           server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASS }}
+          protocol: ftps
+          port: 22
           local-dir: ./build/
           server-dir: /home/dh_j2n9av/victorysoftworks.com/bin/hellsgarde/dev/
