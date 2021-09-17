@@ -126,5 +126,6 @@
   "RIGHT_CURLY": 125,
   "TILDE": 126,
   "DELETE": 127,
+  "LARGE_DOT": 249,
   "SMALL_DOT": 250
 }

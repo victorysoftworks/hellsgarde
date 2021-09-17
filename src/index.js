@@ -31,7 +31,9 @@ function create() {
 
   for (let y = 0; y < 19; y++) {
     for (let x = 0; x < 25; x++) {
-      this.add.image(x * 32, y * 32, 'ascii', sprites['SMALL_DOT']).setOrigin(0, 0).setTint(0x2e2e2e)
+      const terrains = [ 'SMALL_DOT', 'SMALL_DOT', 'SMALL_DOT', 'SMALL_DOT', 'SMALL_DOT', 'SMALL_DOT', 'LARGE_DOT', 'LARGE_DOT', 'COLON', 'QUOTES' ]
+      const terrain = Math.floor(Math.random() * terrains.length);
+      this.add.image(x * 32, y * 32, 'ascii', sprites[terrains[terrain]]).setOrigin(0, 0).setTint(0x2a2a2a)
     }
   }
 
