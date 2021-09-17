@@ -26,9 +26,20 @@ function preload() {
 
 function create() {
   const sprites = this.cache.json.get('ascii')
-  const x = 12 * 32;
-  const y = 9 * 32;
-  this.add.image(x, y, 'ascii', sprites['ROGUE']).setOrigin(0, 0).setTint(0xbe90d4)
+
+  // Draw floor
+
+  for (let y = 0; y < 19; y++) {
+    for (let x = 0; x < 25; x++) {
+      this.add.image(x * 32, y * 32, 'ascii', sprites['SMALL_DOT']).setOrigin(0, 0).setTint(0x2e2e2e)
+    }
+  }
+
+  // Draw rogue
+
+  const x1 = 12 * 32
+  const y1 = 9 * 32
+  this.add.image(x1, y1, 'ascii', sprites['ROGUE']).setOrigin(0, 0).setTint(0xbe90d4)
 }
 
 const game = new Phaser.Game(config)

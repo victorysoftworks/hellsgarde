@@ -125,5 +125,6 @@
   "PIPE": 124,
   "RIGHT_CURLY": 125,
   "TILDE": 126,
-  "DELETE": 127
+  "DELETE": 127,
+  "SMALL_DOT": 250
 }
