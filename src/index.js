@@ -3,9 +3,21 @@
  *****************************************************************************/
 
 const rogue = {
-  x: 12,
-  y: 9
+  x: 3,
+  y: 3
 }
+
+const map = [
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 218, 196, 196, 196, 196, 196, 196, 191, 0],
+  [0, 179, 250, 250, 250, 250, 250, 250, 179, 0],
+  [0, 179, 250, 250, 250, 250, 250, 250, 179, 0],
+  [0, 179, 250, 250, 250, 250, 250, 250, 179, 0],
+  [0, 179, 250, 250, 250, 250, 250, 250, 179, 0],
+  [0, 179, 250, 250, 250, 250, 250, 250, 179, 0],
+  [0, 192, 196, 196, 196, 196, 43, 196, 217, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+]
 
 let cursors
 
@@ -39,9 +51,23 @@ function create() {
 
   // Draw floor
 
-  for (let y = 0; y < 19; y++) {
-    for (let x = 0; x < 25; x++) {
-      this.add.image(x * 32, y * 32, 'ascii', sprites['SMALL_DOT']).setOrigin(0, 0).setTint(0x2a2a2a)
+  for (let y = 0; y < 9; y++) {
+    for (let x = 0; x < 10; x++) {
+      let tint
+
+      switch (map[y][x]) {
+        case 250:
+          tint = 0x2a2a2a
+          break
+        case 43:
+          tint = 0xe67e22
+          break
+        default:
+          tint = 0x666666
+          break
+      }
+      
+      this.add.image(x * 32, y * 32, 'ascii', map[y][x]).setOrigin(0, 0).setTint(tint)
     }
   }
 
@@ -76,9 +102,23 @@ function update() {
 
     // Draw floor
 
-    for (let y = 0; y < 19; y++) {
-      for (let x = 0; x < 25; x++) {
-        this.add.image(x * 32, y * 32, 'ascii', sprites['SMALL_DOT']).setOrigin(0, 0).setTint(0x2a2a2a)
+    for (let y = 0; y < 9; y++) {
+      for (let x = 0; x < 10; x++) {
+        let tint
+
+        switch (map[y][x]) {
+          case 250:
+            tint = 0x2a2a2a
+            break
+          case 43:
+            tint = 0xe67e22
+            break
+          default:
+            tint = 0x666666
+            break
+        }
+        
+        this.add.image(x * 32, y * 32, 'ascii', map[y][x]).setOrigin(0, 0).setTint(tint)
       }
     }
 
