@@ -1,3 +1,8 @@
+/******************************************************************************
+ * The Priority object defines enumerated values for the order in which
+ * components on an entity should be processed.
+ *****************************************************************************/
+
 const Priority = {
   First: 1,
   High: 2,
