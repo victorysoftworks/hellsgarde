@@ -27,8 +27,8 @@ class MainScene extends Phaser.Scene {
   
     // Draw floor
   
-    for (let y = 0; y < 9; y++) {
-      for (let x = 0; x < 10; x++) {
+    for (let y = 0; y < this.map.terrain.length; y++) {
+      for (let x = 0; x < this.map.terrain[y].length; x++) {
         let tint
   
         switch (this.map.terrain[y][x]) {
@@ -79,8 +79,8 @@ class MainScene extends Phaser.Scene {
   
       // Draw floor
   
-      for (let y = 0; y < 9; y++) {
-        for (let x = 0; x < 10; x++) {
+      for (let y = 0; y < this.map.terrain.length; y++) {
+        for (let x = 0; x < this.map.terrain[y].length; x++) {
           let tint
   
           switch (this.map.terrain[y][x]) {
