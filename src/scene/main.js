@@ -43,7 +43,8 @@ class MainScene extends Phaser.Scene {
             break
         }
         
-        this.add.image(x * 32, y * 32, 'ascii', this.map.terrain[y][x]).setOrigin(0, 0).setTint(tint)
+        if (x !== this.rogue.x || y !== this.rogue.y)
+          this.add.image(x * 32, y * 32, 'ascii', this.map.terrain[y][x]).setOrigin(0, 0).setTint(tint)
       }
     }
   
@@ -51,7 +52,7 @@ class MainScene extends Phaser.Scene {
   
     const x1 = this.rogue.x * 32
     const y1 = this.rogue.y * 32
-    this.add.image(x1, y1, 'ascii', sprites['ROGUE']).setOrigin(0, 0).setTint(0xbe90d4)
+    this.add.image(x1, y1, 'ascii', sprites['HELM']).setOrigin(0, 0).setTint(0xbe90d4)
   }
 
   update() {
@@ -94,7 +95,8 @@ class MainScene extends Phaser.Scene {
               break
           }
           
-          this.add.image(x * 32, y * 32, 'ascii', this.map.terrain[y][x]).setOrigin(0, 0).setTint(tint)
+          if (x !== this.rogue.x || y !== this.rogue.y)
+            this.add.image(x * 32, y * 32, 'ascii', this.map.terrain[y][x]).setOrigin(0, 0).setTint(tint)
         }
       }
   
@@ -102,7 +104,7 @@ class MainScene extends Phaser.Scene {
   
       const x1 = this.rogue.x * 32
       const y1 = this.rogue.y * 32
-      this.add.image(x1, y1, 'ascii', sprites['ROGUE']).setOrigin(0, 0).setTint(0xbe90d4)
+      this.add.image(x1, y1, 'ascii', sprites['HELM']).setOrigin(0, 0).setTint(0xbe90d4)
     }
   }
 }

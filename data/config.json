@@ -2,7 +2,7 @@
   "screen": {
     "width": 25,
     "height": 19,
-    "color": "#201f1b"
+    "color": "#202020"
   },
   "tileset": {
     "index": "ascii.json",
