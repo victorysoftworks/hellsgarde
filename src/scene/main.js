@@ -1,17 +1,27 @@
 class MainScene extends Phaser.Scene {
+  constructor(frameWidth, frameHeight, rogue, map) {
+    super()
+
+    this.frameWidth = frameWidth
+    this.frameHeight = frameHeight
+    this.rogue = rogue
+    this.map = map
+    this.cursors = null
+  }
+
   preload() {
     this.load.json('ascii', './data/ascii.json')
     this.load.spritesheet('ascii', 
       './data/ascii.png',
       {
-        frameWidth: 32,
-        frameHeight: 32
+        frameWidth: this.frameWidth,
+        frameHeight: this.frameHeight
       }
     )
   }
 
   create() {
-    cursors = this.input.keyboard.createCursorKeys();
+    this.cursors = this.input.keyboard.createCursorKeys();
   
     const sprites = this.cache.json.get('ascii')
   
@@ -21,7 +31,7 @@ class MainScene extends Phaser.Scene {
       for (let x = 0; x < 10; x++) {
         let tint
   
-        switch (map.terrain[y][x]) {
+        switch (this.map.terrain[y][x]) {
           case 250:
             tint = 0x2a2a2a
             break
@@ -33,31 +43,31 @@ class MainScene extends Phaser.Scene {
             break
         }
         
-        this.add.image(x * 32, y * 32, 'ascii', map.terrain[y][x]).setOrigin(0, 0).setTint(tint)
+        this.add.image(x * 32, y * 32, 'ascii', this.map.terrain[y][x]).setOrigin(0, 0).setTint(tint)
       }
     }
   
     // Draw rogue
   
-    const x1 = rogue.x * 32
-    const y1 = rogue.y * 32
+    const x1 = this.rogue.x * 32
+    const y1 = this.rogue.y * 32
     this.add.image(x1, y1, 'ascii', sprites['ROGUE']).setOrigin(0, 0).setTint(0xbe90d4)
   }
 
   update() {
     let moved = false
   
-    if (cursors.left.isDown) {
-      rogue.x--
+    if (this.cursors.left.isDown) {
+      this.rogue.x--
       moved = true
-    } else if (cursors.right.isDown) {
-      rogue.x++
+    } else if (this.cursors.right.isDown) {
+      this.rogue.x++
       moved = true
-    } else if (cursors.up.isDown) {
-      rogue.y--
+    } else if (this.cursors.up.isDown) {
+      this.rogue.y--
       moved = true
-    } else if (cursors.down.isDown) {
-      rogue.y++
+    } else if (this.cursors.down.isDown) {
+      this.rogue.y++
       moved = true
     }
   
@@ -72,7 +82,7 @@ class MainScene extends Phaser.Scene {
         for (let x = 0; x < 10; x++) {
           let tint
   
-          switch (map.terrain[y][x]) {
+          switch (this.map.terrain[y][x]) {
             case 250:
               tint = 0x2a2a2a
               break
@@ -84,14 +94,14 @@ class MainScene extends Phaser.Scene {
               break
           }
           
-          this.add.image(x * 32, y * 32, 'ascii', map.terrain[y][x]).setOrigin(0, 0).setTint(tint)
+          this.add.image(x * 32, y * 32, 'ascii', this.map.terrain[y][x]).setOrigin(0, 0).setTint(tint)
         }
       }
   
       // Draw rogue
   
-      const x1 = rogue.x * 32
-      const y1 = rogue.y * 32
+      const x1 = this.rogue.x * 32
+      const y1 = this.rogue.y * 32
       this.add.image(x1, y1, 'ascii', sprites['ROGUE']).setOrigin(0, 0).setTint(0xbe90d4)
     }
   }

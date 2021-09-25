@@ -1,3 +1,14 @@
 {
+  "screen": {
+    "width": 25,
+    "height": 19,
+    "color": "#201f1b"
+  },
+  "tileset": {
+    "index": "ascii.json",
+    "sheet": "ascii.png",
+    "tileWidth": 32,
+    "tileHeight": 32
+  },
   "maxDepth": 26
 }
