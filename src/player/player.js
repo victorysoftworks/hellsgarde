@@ -1,6 +1,6 @@
 class Player {
   constructor() {
-    this.x = 3
-    this.y = 3
+    this.x = 7
+    this.y = 17
   }
 }
