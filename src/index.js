@@ -10,6 +10,12 @@
 
   const config = await fetch('./data/config.json')
     .then(response => response.json())
+
+  /****************************************************************************
+   * Set HTML page (not scene) background color.
+   ***************************************************************************/
+
+  document.querySelector('body').style.backgroundColor = config.screen.color
   
   /****************************************************************************
    * Start game.
