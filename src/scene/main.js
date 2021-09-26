@@ -26,6 +26,10 @@ class MainScene extends Phaser.Scene {
     const sprites = this.cache.json.get('ascii')
   
     // Draw floor
+
+    const position = this.rogue.query('position')
+    const glyph = this.rogue.query('glyph')
+    const color = this.rogue.query('color')
   
     for (let y = 0; y < this.map.terrain.length; y++) {
       for (let x = 0; x < this.map.terrain[y].length; x++) {
@@ -43,32 +47,33 @@ class MainScene extends Phaser.Scene {
             break
         }
         
-        if (x !== this.rogue.x || y !== this.rogue.y)
+        if (x !== position.x || y !== position.y)
           this.add.image(x * 32, y * 32, 'ascii', this.map.terrain[y][x]).setOrigin(0, 0).setTint(tint)
       }
     }
   
     // Draw rogue
-  
-    const x1 = this.rogue.x * 32
-    const y1 = this.rogue.y * 32
-    this.add.image(x1, y1, 'ascii', sprites['HELM']).setOrigin(0, 0).setTint(0xbe90d4)
+    
+    const x1 = position.x * 32
+    const y1 = position.y * 32
+    this.add.image(x1, y1, 'ascii', glyph).setOrigin(0, 0).setTint(color)
   }
 
   update() {
+    let currentPosition = this.rogue.query('position')
     let moved = false
   
     if (this.cursors.left.isDown) {
-      this.rogue.x--
+      this.rogue.receive('move', { x: currentPosition.x - 1, y: currentPosition.y })
       moved = true
     } else if (this.cursors.right.isDown) {
-      this.rogue.x++
+      this.rogue.receive('move', { x: currentPosition.x + 1, y: currentPosition.y })
       moved = true
     } else if (this.cursors.up.isDown) {
-      this.rogue.y--
+      this.rogue.receive('move', { x: currentPosition.x, y: currentPosition.y - 1 })
       moved = true
     } else if (this.cursors.down.isDown) {
-      this.rogue.y++
+      this.rogue.receive('move', { x: currentPosition.x, y: currentPosition.y + 1 })
       moved = true
     }
   
@@ -78,6 +83,10 @@ class MainScene extends Phaser.Scene {
       this.scene.restart()
   
       // Draw floor
+
+      const position = this.rogue.query('position')
+      const glyph = this.rogue.query('glyph')
+      const color = this.rogue.query('color')
   
       for (let y = 0; y < this.map.terrain.length; y++) {
         for (let x = 0; x < this.map.terrain[y].length; x++) {
@@ -95,16 +104,16 @@ class MainScene extends Phaser.Scene {
               break
           }
           
-          if (x !== this.rogue.x || y !== this.rogue.y)
+          if (x !== position.x || y !== position.y)
             this.add.image(x * 32, y * 32, 'ascii', this.map.terrain[y][x]).setOrigin(0, 0).setTint(tint)
         }
       }
   
       // Draw rogue
   
-      const x1 = this.rogue.x * 32
-      const y1 = this.rogue.y * 32
-      this.add.image(x1, y1, 'ascii', sprites['HELM']).setOrigin(0, 0).setTint(0xbe90d4)
+      const x1 = position.x * 32
+      const y1 = position.y * 32
+      this.add.image(x1, y1, 'ascii', glyph).setOrigin(0, 0).setTint(color)
     }
   }
 }

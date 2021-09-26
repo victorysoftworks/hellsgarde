@@ -16,12 +16,19 @@
    ***************************************************************************/
 
   document.querySelector('body').style.backgroundColor = config.screen.color
+
+  /****************************************************************************
+   * Create Rogue.
+   ***************************************************************************/
+  
+  const rogue = new Entity()
+  rogue.addComponent(new RenderableComponent(2, 0xbe90d4))
+  rogue.addComponent(new PositionComponent(7, 17))
   
   /****************************************************************************
    * Start game.
    ***************************************************************************/
 
-  const rogue = new Player()
   const map = new Map()
   const game = new Game({
     type: Phaser.AUTO,

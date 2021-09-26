@@ -12,6 +12,8 @@ class RenderableComponent extends Component {
    ***************************************************************************/
   
   constructor(glyph, color) {
+    super(Priority.Default)
+
     this.glyph = glyph
     this.color = color
   }
@@ -57,10 +59,10 @@ class RenderableComponent extends Component {
    ***************************************************************************/
 
   query(query) {
-    if (query.for === 'glyph')
+    if (query.type === 'glyph')
       query.result = this.glyph
     
-    if (query.for === 'color')
+    if (query.type === 'color')
       query.result = this.color
   }
 

@@ -12,6 +12,8 @@ class PositionComponent extends Component {
    ***************************************************************************/
   
   constructor(x, y) {
+    super(Priority.Default)
+
     this.x = x
     this.y = y
   }
@@ -46,7 +48,7 @@ class PositionComponent extends Component {
    ***************************************************************************/
 
   query(query) {
-    if (query.for === 'position')
+    if (query.type === 'position')
       query.result = { x: this.x, y: this.y }
   }
 
