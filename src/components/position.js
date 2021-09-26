@@ -19,7 +19,6 @@ class PositionComponent extends Component {
   /****************************************************************************
    * Handles events broadcast to the component.
    * 
-   * @abstract
    * @param {Event} event Event to handle
    ***************************************************************************/
 
@@ -43,7 +42,6 @@ class PositionComponent extends Component {
   /****************************************************************************
    * Handles queries made to the component.
    * 
-   * @abstract
    * @param {Query} query Query to handle
    ***************************************************************************/
 
