@@ -37,6 +37,16 @@ class MainScene extends Phaser.Scene {
     marilith.addComponent(new PositionComponent(12, 8))
     marilith.addComponent(new RenderableComponent(77, 0xd63031))
     this.entities.push(marilith)
+
+    const statue1 = new Entity()
+    statue1.addComponent(new PositionComponent(6, 12))
+    statue1.addComponent(new RenderableComponent(38, 0x666666))
+    this.entities.push(statue1)
+
+    const statue2 = new Entity()
+    statue2.addComponent(new PositionComponent(8, 12))
+    statue2.addComponent(new RenderableComponent(38, 0x666666))
+    this.entities.push(statue2)
   
     // Draw floor
 
