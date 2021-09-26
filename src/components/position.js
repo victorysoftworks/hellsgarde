@@ -29,7 +29,7 @@ class PositionComponent extends Component {
   }
 
   /****************************************************************************
-   * Sets the component's X,Y position.
+   * Sets the entity's X,Y position.
    * 
    * @param {number} x X position
    * @param {number} y Y position
