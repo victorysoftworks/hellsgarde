@@ -7,6 +7,7 @@ class MainScene extends Phaser.Scene {
     this.rogue = rogue
     this.map = map
     this.cursors = null
+    this.entities = []
   }
 
   preload() {
@@ -24,6 +25,18 @@ class MainScene extends Phaser.Scene {
     this.cursors = this.input.keyboard.createCursorKeys();
   
     const sprites = this.cache.json.get('ascii')
+
+    // Add other entities
+
+    const amulet = new Entity()
+    amulet.addComponent(new PositionComponent(18, 11))
+    amulet.addComponent(new RenderableComponent(12, 0xffeaa7))
+    this.entities.push(amulet)
+
+    const marilith = new Entity()
+    marilith.addComponent(new PositionComponent(12, 8))
+    marilith.addComponent(new RenderableComponent(77, 0xd63031))
+    this.entities.push(marilith)
   
     // Draw floor
 
@@ -51,6 +64,16 @@ class MainScene extends Phaser.Scene {
           this.add.image(x * 32, y * 32, 'ascii', this.map.terrain[y][x]).setOrigin(0, 0).setTint(tint)
       }
     }
+
+    // Draw other entities
+
+    this.entities.forEach(e => {
+      let p = e.query('position')
+      let g = e.query('glyph')
+      let c = e.query('color')
+
+      this.add.image(p.x * 32, p.y * 32, 'ascii', g).setOrigin(0, 0).setTint(c)
+    })
   
     // Draw rogue
     
@@ -108,6 +131,16 @@ class MainScene extends Phaser.Scene {
             this.add.image(x * 32, y * 32, 'ascii', this.map.terrain[y][x]).setOrigin(0, 0).setTint(tint)
         }
       }
+
+      // Draw other entities
+
+      this.entities.forEach(e => {
+        let p = e.query('position')
+        let g = e.query('glyph')
+        let c = e.query('color')
+
+        this.add.image(p.x * 32, p.y * 32, 'ascii', g).setOrigin(0, 0).setTint(c)
+      })
   
       // Draw rogue
   
