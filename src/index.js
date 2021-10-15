@@ -30,7 +30,7 @@
    ***************************************************************************/
 
   const map = new Map()
-  const game = new Game({
+  const phaser = new Phaser.Game({
     type: Phaser.AUTO,
     width: config.screen.width * config.tileset.tileWidth,
     height: config.screen.height * config.tileset.tileHeight,
@@ -42,5 +42,9 @@
       map
     )
   })
+
+  Game.start()
+
+  console.log(Game.entityManager)
 
 })()
