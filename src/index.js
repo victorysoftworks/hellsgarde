@@ -22,7 +22,7 @@
    ***************************************************************************/
   
   const rogue = new Entity()
-  rogue.addComponent(new RenderableComponent(2, 0xbe90d4))
+  rogue.addComponent(new RenderableComponent(64, 0xbe90d4))
   rogue.addComponent(new PositionComponent(7, 17))
   
   /****************************************************************************

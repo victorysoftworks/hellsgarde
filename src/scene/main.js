@@ -63,7 +63,7 @@ class MainScene extends Phaser.Scene {
             tint = 0x2a2a2a
             break
           case 43:
-            tint = 0xe67e22
+            tint = 0xa66b3a
             break
           default:
             tint = 0x666666
@@ -71,7 +71,7 @@ class MainScene extends Phaser.Scene {
         }
         
         if (x !== position.x || y !== position.y)
-          this.add.image(x * 32, y * 32, 'ascii', this.map.terrain[y][x]).setOrigin(0, 0).setTint(tint)
+          this.add.image(x * 24, y * 24, 'ascii', this.map.terrain[y][x]).setOrigin(0, 0).setTint(tint)
       }
     }
 
@@ -82,13 +82,13 @@ class MainScene extends Phaser.Scene {
       let g = e.query('glyph')
       let c = e.query('color')
 
-      this.add.image(p.x * 32, p.y * 32, 'ascii', g).setOrigin(0, 0).setTint(c)
+      this.add.image(p.x * 24, p.y * 24, 'ascii', g).setOrigin(0, 0).setTint(c)
     })
   
     // Draw rogue
     
-    const x1 = position.x * 32
-    const y1 = position.y * 32
+    const x1 = position.x * 24
+    const y1 = position.y * 24
     this.add.image(x1, y1, 'ascii', glyph).setOrigin(0, 0).setTint(color)
   }
 
@@ -130,7 +130,7 @@ class MainScene extends Phaser.Scene {
               tint = 0x2a2a2a
               break
             case 43:
-              tint = 0xe67e22
+              tint = 0xa66b3a
               break
             default:
               tint = 0x666666
@@ -138,7 +138,7 @@ class MainScene extends Phaser.Scene {
           }
           
           if (x !== position.x || y !== position.y)
-            this.add.image(x * 32, y * 32, 'ascii', this.map.terrain[y][x]).setOrigin(0, 0).setTint(tint)
+            this.add.image(x * 24, y * 24, 'ascii', this.map.terrain[y][x]).setOrigin(0, 0).setTint(tint)
         }
       }
 
@@ -149,13 +149,13 @@ class MainScene extends Phaser.Scene {
         let g = e.query('glyph')
         let c = e.query('color')
 
-        this.add.image(p.x * 32, p.y * 32, 'ascii', g).setOrigin(0, 0).setTint(c)
+        this.add.image(p.x * 24, p.y * 24, 'ascii', g).setOrigin(0, 0).setTint(c)
       })
   
       // Draw rogue
   
-      const x1 = position.x * 32
-      const y1 = position.y * 32
+      const x1 = position.x * 24
+      const y1 = position.y * 24
       this.add.image(x1, y1, 'ascii', glyph).setOrigin(0, 0).setTint(color)
     }
   }

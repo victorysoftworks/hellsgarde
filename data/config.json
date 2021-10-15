@@ -7,8 +7,8 @@
   "tileset": {
     "index": "ascii.json",
     "sheet": "ascii.png",
-    "tileWidth": 32,
-    "tileHeight": 32
+    "tileWidth": 24,
+    "tileHeight": 24
   },
   "maxDepth": 26
 }
