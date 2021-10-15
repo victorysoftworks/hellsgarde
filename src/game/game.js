@@ -1,5 +1,7 @@
-class Game extends Phaser.Game {
-  constructor(config) {
-    super(config)
+class Game {
+
+  static start() {
+    Game.entityManager = new EntityManager()
   }
+
 }
