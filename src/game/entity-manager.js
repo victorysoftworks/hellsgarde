@@ -16,7 +16,6 @@ class EntityManager {
   /****************************************************************************
    * Adds the given entity to the game world.
    * 
-   * @abstract
    * @param {Entity} entity Entity to add
    ***************************************************************************/
 
@@ -25,9 +24,18 @@ class EntityManager {
   }
 
   /****************************************************************************
+   * Adds multiple given entities to the game world.
+   * 
+   * @param {Array} entities Entities to add
+   ***************************************************************************/
+
+   addEntities(entities) {
+    this.entities.push(...entities)
+  }
+
+  /****************************************************************************
    * Removes the given entity from the game world.
    * 
-   * @abstract
    * @param {Entity} entity Entity to remove
    ***************************************************************************/
 

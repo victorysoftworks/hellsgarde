@@ -25,28 +25,6 @@ class MainScene extends Phaser.Scene {
     this.cursors = this.input.keyboard.createCursorKeys();
   
     const sprites = this.cache.json.get('ascii')
-
-    // Add other entities
-
-    const amulet = new Entity()
-    amulet.addComponent(new PositionComponent(18, 11))
-    amulet.addComponent(new RenderableComponent(12, 0xffeaa7))
-    this.entities.push(amulet)
-
-    const marilith = new Entity()
-    marilith.addComponent(new PositionComponent(12, 8))
-    marilith.addComponent(new RenderableComponent(77, 0xd63031))
-    this.entities.push(marilith)
-
-    const statue1 = new Entity()
-    statue1.addComponent(new PositionComponent(6, 12))
-    statue1.addComponent(new RenderableComponent(38, 0x666666))
-    this.entities.push(statue1)
-
-    const statue2 = new Entity()
-    statue2.addComponent(new PositionComponent(8, 12))
-    statue2.addComponent(new RenderableComponent(38, 0x666666))
-    this.entities.push(statue2)
   
     // Draw floor
 
@@ -77,7 +55,7 @@ class MainScene extends Phaser.Scene {
 
     // Draw other entities
 
-    this.entities.forEach(e => {
+    Game.entityManager.getAllEntities().forEach(e => {
       let p = e.query('position')
       let g = e.query('glyph')
       let c = e.query('color')
@@ -144,7 +122,7 @@ class MainScene extends Phaser.Scene {
 
       // Draw other entities
 
-      this.entities.forEach(e => {
+      Game.entityManager.getAllEntities().forEach(e => {
         let p = e.query('position')
         let g = e.query('glyph')
         let c = e.query('color')
