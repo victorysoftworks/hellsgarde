@@ -22,26 +22,13 @@
    ***************************************************************************/
   
   const rogue = new Entity()
+  rogue.addComponent(new RogueComponent())
   rogue.addComponent(new RenderableComponent(64, 0xbe90d4))
   rogue.addComponent(new PositionComponent(7, 17))
   
   /****************************************************************************
    * Start game.
    ***************************************************************************/
-
-  const map = new Map()
-  const phaser = new Phaser.Game({
-    type: Phaser.AUTO,
-    width: config.screen.width * config.tileset.tileWidth,
-    height: config.screen.height * config.tileset.tileHeight,
-    backgroundColor: config.screen.color,
-    scene: new MainScene(
-      config.tileset.tileWidth,
-      config.tileset.tileHeight,
-      rogue,
-      map
-    )
-  })
 
   Game.start()
 
@@ -67,8 +54,23 @@
   statue2.addComponent(new PositionComponent(8, 12))
   statue2.addComponent(new RenderableComponent(38, 0x666666))
 
-  Game.entityManager.addEntities([amulet, marilith, statue1, statue2])
+  Game.entityManager.addEntities([rogue, amulet, marilith, statue1, statue2])
 
-  console.log(Game.entityManager)
+  /****************************************************************************
+   * Render to screen.
+   ***************************************************************************/
+
+  const map = new Map()
+  const phaser = new Phaser.Game({
+    type: Phaser.AUTO,
+    width: config.screen.width * config.tileset.tileWidth,
+    height: config.screen.height * config.tileset.tileHeight,
+    backgroundColor: config.screen.color,
+    scene: new MainScene(
+      config.tileset.tileWidth,
+      config.tileset.tileHeight,
+      map
+    )
+  })
 
 })()

@@ -44,6 +44,14 @@ class EntityManager {
   }
 
   /****************************************************************************
+   * Removes all entities from the game world.
+   ***************************************************************************/
+
+  removeAllEntities() {
+    this.entities = []
+  }
+
+  /****************************************************************************
    * Gets all entities in the game world.
    * 
    * @return {Array}
@@ -64,17 +72,6 @@ class EntityManager {
   }
 
   /****************************************************************************
-   * Gets all entities in the game world that have the given tag.
-   * 
-   * @param {string} tag Tag to filter entities by
-   * @return {Array}
-   ***************************************************************************/
-
-  getEntitiesByTag(tag) {
-    return this.entities.filter(e => ! e.query('tag', false, { tag }))
-  }
-
-  /****************************************************************************
    * Gets all entities in the game world that have the given X, Y position.
    * 
    * @param {number} x X position
@@ -91,13 +88,24 @@ class EntityManager {
   }
 
   /****************************************************************************
+   * Gets all entities in the game world that have the given tag.
+   * 
+   * @param {string} tag Tag to filter entities by
+   * @return {Array}
+   ***************************************************************************/
+
+  getEntitiesByTag(tag) {
+    return this.entities.filter(e => e.query('tag', false, { tag }))
+  }
+
+  /****************************************************************************
    * Gets the Rogue.
    * 
    * @return {Entity}
    ***************************************************************************/
 
   getRogue() {
-    return this.entities.filter(e => e.query('isRogue'))[0]
+    return this.getEntitiesByTag('rogue')[0]
   }
 
 }

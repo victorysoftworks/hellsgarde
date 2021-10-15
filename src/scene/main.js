@@ -1,10 +1,9 @@
 class MainScene extends Phaser.Scene {
-  constructor(frameWidth, frameHeight, rogue, map) {
+  constructor(frameWidth, frameHeight, map) {
     super()
 
     this.frameWidth = frameWidth
     this.frameHeight = frameHeight
-    this.rogue = rogue
     this.map = map
     this.cursors = null
     this.entities = []
@@ -27,10 +26,10 @@ class MainScene extends Phaser.Scene {
     const sprites = this.cache.json.get('ascii')
   
     // Draw floor
-
-    const position = this.rogue.query('position')
-    const glyph = this.rogue.query('glyph')
-    const color = this.rogue.query('color')
+    const rogue = Game.entityManager.getRogue()
+    const position = rogue.query('position')
+    const glyph = rogue.query('glyph')
+    const color = rogue.query('color')
   
     for (let y = 0; y < this.map.terrain.length; y++) {
       for (let x = 0; x < this.map.terrain[y].length; x++) {
@@ -71,20 +70,21 @@ class MainScene extends Phaser.Scene {
   }
 
   update() {
-    let currentPosition = this.rogue.query('position')
+    const rogue = Game.entityManager.getRogue()
+    let currentPosition = rogue.query('position')
     let moved = false
   
     if (this.cursors.left.isDown) {
-      this.rogue.receive('move', { x: currentPosition.x - 1, y: currentPosition.y })
+      rogue.receive('move', { x: currentPosition.x - 1, y: currentPosition.y })
       moved = true
     } else if (this.cursors.right.isDown) {
-      this.rogue.receive('move', { x: currentPosition.x + 1, y: currentPosition.y })
+      rogue.receive('move', { x: currentPosition.x + 1, y: currentPosition.y })
       moved = true
     } else if (this.cursors.up.isDown) {
-      this.rogue.receive('move', { x: currentPosition.x, y: currentPosition.y - 1 })
+      rogue.receive('move', { x: currentPosition.x, y: currentPosition.y - 1 })
       moved = true
     } else if (this.cursors.down.isDown) {
-      this.rogue.receive('move', { x: currentPosition.x, y: currentPosition.y + 1 })
+      rogue.receive('move', { x: currentPosition.x, y: currentPosition.y + 1 })
       moved = true
     }
   
@@ -95,9 +95,9 @@ class MainScene extends Phaser.Scene {
   
       // Draw floor
 
-      const position = this.rogue.query('position')
-      const glyph = this.rogue.query('glyph')
-      const color = this.rogue.query('color')
+      const position = rogue.query('position')
+      const glyph = rogue.query('glyph')
+      const color = rogue.query('color')
   
       for (let y = 0; y < this.map.terrain.length; y++) {
         for (let x = 0; x < this.map.terrain[y].length; x++) {
