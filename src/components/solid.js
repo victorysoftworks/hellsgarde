@@ -1,15 +1,15 @@
 /******************************************************************************
- * The entity with the Rogue component is our heroine.
+ * An entity with the Solid component blocks movement and projectiles.
  *****************************************************************************/
 
-class RogueComponent extends Component {
+class SolidComponent extends Component {
 
   /****************************************************************************
    * Constructor.
    ***************************************************************************/
   
   constructor() {
-    super(Priority.First)
+    super(Priority.Default)
   }
 
   /****************************************************************************
@@ -19,7 +19,7 @@ class RogueComponent extends Component {
    ***************************************************************************/
 
   query(query) {
-    if (query.type === 'rogue')
+    if (query.type === 'solid')
       query.result = true
   }
 

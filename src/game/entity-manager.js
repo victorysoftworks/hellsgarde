@@ -88,6 +88,19 @@ class EntityManager {
   }
 
   /****************************************************************************
+   * Gets all movement- and projectile-blocking entities in the game world
+   * that have the given X, Y position.
+   * 
+   * @param {number} x X position
+   * @param {number} y Y position
+   * @return {Array}
+   ***************************************************************************/
+
+  getSolidEntitiesAtPosition(x, y) {
+    return this.getEntitiesAtPosition(x, y).filter(e => e.query('solid'))
+  }
+
+  /****************************************************************************
    * Gets all entities in the game world that have the given tag.
    * 
    * @param {string} tag Tag to filter entities by
@@ -105,7 +118,7 @@ class EntityManager {
    ***************************************************************************/
 
   getRogue() {
-    return this.getEntitiesByTag('rogue')[0]
+    return this.entities.filter(e => e.query('rogue'))[0]
   }
 
 }

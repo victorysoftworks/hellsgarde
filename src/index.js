@@ -25,6 +25,7 @@
   rogue.addComponent(new RogueComponent())
   rogue.addComponent(new RenderableComponent(64, 0xbe90d4))
   rogue.addComponent(new PositionComponent(7, 17))
+  rogue.addComponent(new SolidComponent())
   
   /****************************************************************************
    * Start game.
@@ -45,14 +46,17 @@
   const marilith = new Entity()
   marilith.addComponent(new PositionComponent(12, 8))
   marilith.addComponent(new RenderableComponent(77, 0xd24d57))
+  marilith.addComponent(new SolidComponent())
 
   const statue1 = new Entity()
   statue1.addComponent(new PositionComponent(6, 12))
   statue1.addComponent(new RenderableComponent(38, 0x666666))
+  statue1.addComponent(new SolidComponent())
 
   const statue2 = new Entity()
   statue2.addComponent(new PositionComponent(8, 12))
   statue2.addComponent(new RenderableComponent(38, 0x666666))
+  statue2.addComponent(new SolidComponent())
 
   Game.entityManager.addEntities([rogue, amulet, marilith, statue1, statue2])
 
@@ -60,7 +64,6 @@
    * Render to screen.
    ***************************************************************************/
 
-  const map = new Map()
   const phaser = new Phaser.Game({
     type: Phaser.AUTO,
     width: config.screen.width * config.tileset.tileWidth,
@@ -68,8 +71,7 @@
     backgroundColor: config.screen.color,
     scene: new MainScene(
       config.tileset.tileWidth,
-      config.tileset.tileHeight,
-      map
+      config.tileset.tileHeight
     )
   })
 
