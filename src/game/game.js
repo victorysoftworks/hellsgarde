@@ -7,7 +7,7 @@ class Game {
 
   static squareIsOpen(x, y) {
     const blocked = Game.map.collision[y][x]
-    const entities = Game.entityManager.getEntitiesAtPosition(x, y)
+    const entities = Game.entityManager.getSolidEntitiesAtPosition(x, y)
 
     return entities.length === 0 && ! blocked
   }
