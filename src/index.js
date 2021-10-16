@@ -23,7 +23,7 @@
   
   const rogue = new Entity()
   rogue.addComponent(new RogueComponent())
-  rogue.addComponent(new RenderableComponent(64, 0xbe90d4))
+  rogue.addComponent(new RenderableComponent(64, 0x588d71))
   rogue.addComponent(new PositionComponent(7, 17))
   rogue.addComponent(new SolidComponent())
   
