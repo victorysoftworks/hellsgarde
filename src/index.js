@@ -42,6 +42,10 @@
   const entrance = new Entity()
   entrance.addComponent(new PositionComponent(7, 18))
   entrance.addComponent(new RenderableComponent(234, 0x666666))
+  entrance.addComponent(new CollisionTriggerComponent(
+    new PostMessageEffect(`A magical force repels you from the entrance`),
+    e => e.query('rogue')
+  ))
   
   const amulet = new Entity()
   amulet.addComponent(new PositionComponent(18, 11))
