@@ -37,7 +37,7 @@ class MainScene extends Phaser.Scene {
   
         switch (this.map.terrain[y][x]) {
           case 250:
-            tint = 0x2a2a2a
+            tint = 0x3a3a3a
             break
           case 43:
             tint = 0xa66b3a
@@ -105,7 +105,7 @@ class MainScene extends Phaser.Scene {
   
           switch (this.map.terrain[y][x]) {
             case 250:
-              tint = 0x2a2a2a
+              tint = 0x3a3a3a
               break
             case 43:
               tint = 0xa66b3a
