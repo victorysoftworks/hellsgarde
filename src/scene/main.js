@@ -72,19 +72,56 @@ class MainScene extends Phaser.Scene {
     const rogue = Game.entityManager.getRogue()
     let currentPosition = rogue.query('position')
     let moved = false
-  
-    if (this.cursors.left.isDown && Game.squareIsOpen(currentPosition.x - 1, currentPosition.y)) {
-      rogue.receive('move', { x: currentPosition.x - 1, y: currentPosition.y })
-      moved = true
-    } else if (this.cursors.right.isDown && Game.squareIsOpen(currentPosition.x + 1, currentPosition.y)) {
-      rogue.receive('move', { x: currentPosition.x + 1, y: currentPosition.y })
-      moved = true
-    } else if (this.cursors.up.isDown && Game.squareIsOpen(currentPosition.x, currentPosition.y - 1)) {
-      rogue.receive('move', { x: currentPosition.x, y: currentPosition.y - 1 })
-      moved = true
-    } else if (this.cursors.down.isDown && Game.squareIsOpen(currentPosition.x, currentPosition.y + 1)) {
-      rogue.receive('move', { x: currentPosition.x, y: currentPosition.y + 1 })
-      moved = true
+    let collision = false
+    let collisionX, collisionY
+    
+    // Left
+
+    if (this.cursors.left.isDown) {
+      if (Game.squareIsOpen(currentPosition.x - 1, currentPosition.y)) {
+        rogue.receive('move', { x: currentPosition.x - 1, y: currentPosition.y })
+        moved = true
+      } else {
+        collision = true
+        collisionX = currentPosition.x - 1
+        collisionY = currentPosition.y
+      }
+    
+    // Right
+    
+    } else if (this.cursors.right.isDown) {
+      if (Game.squareIsOpen(currentPosition.x + 1, currentPosition.y)) {
+        rogue.receive('move', { x: currentPosition.x + 1, y: currentPosition.y })
+        moved = true
+      } else {
+        collision = true
+        collisionX = currentPosition.x + 1
+        collisionY = currentPosition.y
+      }
+    
+    // Up
+    
+    } else if (this.cursors.up.isDown) {
+      if (Game.squareIsOpen(currentPosition.x, currentPosition.y - 1)) {
+        rogue.receive('move', { x: currentPosition.x, y: currentPosition.y - 1 })
+        moved = true
+      } else {
+        collision = true
+        collisionX = currentPosition.x
+        collisionY = currentPosition.y - 1
+      }
+    
+    // Down
+    
+    } else if (this.cursors.down.isDown) {
+      if (Game.squareIsOpen(currentPosition.x, currentPosition.y + 1)) {
+        rogue.receive('move', { x: currentPosition.x, y: currentPosition.y + 1 })
+        moved = true
+      } else {
+        collision = true
+        collisionX = currentPosition.x
+        collisionY = currentPosition.y + 1
+      }
     }
   
     if (moved) {
@@ -134,6 +171,10 @@ class MainScene extends Phaser.Scene {
       const x1 = position.x * 24
       const y1 = position.y * 24
       this.add.image(x1, y1, 'ascii', glyph).setOrigin(0, 0).setTint(color)
+    } else if (collision) {
+      Game.entityManager
+          .getEntitiesAtPosition(collisionX, collisionY)
+          .forEach(e => e.receive('collidedWith', { collider: rogue }))
     }
   }
 }
