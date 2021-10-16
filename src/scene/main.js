@@ -125,6 +125,9 @@ class MainScene extends Phaser.Scene {
     }
   
     if (moved) {
+      const messageBox = document.querySelector('[data-message]')
+      messageBox.textContent = ''
+      
       const sprites = this.cache.json.get('ascii')
   
       this.scene.restart()
