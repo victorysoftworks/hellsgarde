@@ -39,6 +39,10 @@
    * Add initial entities to game world.
    ***************************************************************************/
 
+  const entrance = new Entity()
+  entrance.addComponent(new PositionComponent(7, 18))
+  entrance.addComponent(new RenderableComponent(234, 0x666666))
+  
   const amulet = new Entity()
   amulet.addComponent(new PositionComponent(18, 11))
   amulet.addComponent(new RenderableComponent(12, 0xffeaa7))
@@ -58,7 +62,7 @@
   statue2.addComponent(new RenderableComponent(38, 0x666666))
   statue2.addComponent(new SolidComponent())
 
-  Game.entityManager.addEntities([rogue, amulet, marilith, statue1, statue2])
+  Game.entityManager.addEntities([rogue, entrance, amulet, marilith, statue1, statue2])
 
   /****************************************************************************
    * Render to screen.
