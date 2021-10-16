@@ -62,7 +62,44 @@
   statue2.addComponent(new RenderableComponent(38, 0x666666))
   statue2.addComponent(new SolidComponent())
 
-  Game.entityManager.addEntities([rogue, entrance, amulet, marilith, statue1, statue2])
+  const water1 = new Entity()
+  water1.addComponent(new PositionComponent(3, 3))
+  water1.addComponent(new RenderableComponent(176, 0x59abe3))
+
+  const water2 = new Entity()
+  water2.addComponent(new PositionComponent(4, 3))
+  water2.addComponent(new RenderableComponent(176, 0x59abe3))
+
+  const water3 = new Entity()
+  water3.addComponent(new PositionComponent(5, 3))
+  water3.addComponent(new RenderableComponent(176, 0x59abe3))
+
+  const water4 = new Entity()
+  water4.addComponent(new PositionComponent(3, 4))
+  water4.addComponent(new RenderableComponent(176, 0x59abe3))
+
+  const water5 = new Entity()
+  water5.addComponent(new PositionComponent(4, 4))
+  water5.addComponent(new RenderableComponent(176, 0x59abe3))
+
+  const water6 = new Entity()
+  water6.addComponent(new PositionComponent(5, 4))
+  water6.addComponent(new RenderableComponent(176, 0x59abe3))
+
+  Game.entityManager.addEntities([
+    rogue, 
+    entrance, 
+    amulet, 
+    marilith, 
+    statue1, 
+    statue2,
+    water1,
+    water2,
+    water3,
+    water4,
+    water5,
+    water6
+  ])
 
   /****************************************************************************
    * Render to screen.
