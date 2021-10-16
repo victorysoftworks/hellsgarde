@@ -60,7 +60,6 @@
    * Render to screen.
    ***************************************************************************/
 
-  const map = new Map()
   const phaser = new Phaser.Game({
     type: Phaser.AUTO,
     width: config.screen.width * config.tileset.tileWidth,
@@ -68,8 +67,7 @@
     backgroundColor: config.screen.color,
     scene: new MainScene(
       config.tileset.tileWidth,
-      config.tileset.tileHeight,
-      map
+      config.tileset.tileHeight
     )
   })
 
