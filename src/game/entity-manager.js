@@ -118,7 +118,7 @@ class EntityManager {
    ***************************************************************************/
 
   getRogue() {
-    return this.getEntitiesByTag('rogue')[0]
+    return this.entities.filter(e => e.query('rogue'))[0]
   }
 
 }

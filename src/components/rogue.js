@@ -19,7 +19,7 @@ class RogueComponent extends Component {
    ***************************************************************************/
 
   query(query) {
-    if (query.type === 'tag' && query.params.tag === 'rogue')
+    if (query.type === 'rogue')
       query.result = true
   }
 
