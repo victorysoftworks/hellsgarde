@@ -1,9 +1,11 @@
 class MainScene extends Phaser.Scene {
-  constructor(frameWidth, frameHeight) {
+  constructor(frameWidth, frameHeight, cameraWidth, cameraHeight) {
     super()
 
     this.frameWidth = frameWidth
     this.frameHeight = frameHeight
+    this.cameraWidth = cameraWidth
+    this.cameraHeight = cameraHeight
     this.cursors = null
     this.entities = []
   }
