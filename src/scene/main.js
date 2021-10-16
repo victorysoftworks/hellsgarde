@@ -73,16 +73,16 @@ class MainScene extends Phaser.Scene {
     let currentPosition = rogue.query('position')
     let moved = false
   
-    if (this.cursors.left.isDown) {
+    if (this.cursors.left.isDown && Game.squareIsOpen(currentPosition.x - 1, currentPosition.y)) {
       rogue.receive('move', { x: currentPosition.x - 1, y: currentPosition.y })
       moved = true
-    } else if (this.cursors.right.isDown) {
+    } else if (this.cursors.right.isDown && Game.squareIsOpen(currentPosition.x + 1, currentPosition.y)) {
       rogue.receive('move', { x: currentPosition.x + 1, y: currentPosition.y })
       moved = true
-    } else if (this.cursors.up.isDown) {
+    } else if (this.cursors.up.isDown && Game.squareIsOpen(currentPosition.x, currentPosition.y - 1)) {
       rogue.receive('move', { x: currentPosition.x, y: currentPosition.y - 1 })
       moved = true
-    } else if (this.cursors.down.isDown) {
+    } else if (this.cursors.down.isDown && Game.squareIsOpen(currentPosition.x, currentPosition.y + 1)) {
       rogue.receive('move', { x: currentPosition.x, y: currentPosition.y + 1 })
       moved = true
     }
