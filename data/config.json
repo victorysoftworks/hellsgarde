@@ -10,5 +10,5 @@
     "tileWidth": 24,
     "tileHeight": 24
   },
-  "maxDepth": 26
+  "minAmuletDepth": 26
 }
