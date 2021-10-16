@@ -44,7 +44,7 @@
 
   const marilith = new Entity()
   marilith.addComponent(new PositionComponent(12, 8))
-  marilith.addComponent(new RenderableComponent(77, 0xd63031))
+  marilith.addComponent(new RenderableComponent(77, 0xd24d57))
 
   const statue1 = new Entity()
   statue1.addComponent(new PositionComponent(6, 12))
