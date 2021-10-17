@@ -9,13 +9,15 @@ class RenderableComponent extends Component {
    * 
    * @param {number} glyph ASCII glyph code
    * @param {number} color Hex color (0x123456)
+   * @param {number} layer Render layer
    ***************************************************************************/
   
-  constructor(glyph, color) {
+  constructor(glyph, color, layer) {
     super(Priority.Default)
 
     this.glyph = glyph
     this.color = color
+    this.layer = layer
   }
 
   /****************************************************************************
@@ -64,6 +66,9 @@ class RenderableComponent extends Component {
     
     if (query.type === 'color')
       query.result = this.color
+    
+    if (query.type === 'layer')
+      query.result = this.layer
   }
 
 }
