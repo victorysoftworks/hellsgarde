@@ -41,7 +41,7 @@
 
   const entrance = new Entity()
   entrance.addComponent(new PositionComponent(7, 18))
-  entrance.addComponent(new RenderableComponent(234, 0x666666, Layer.Terrain))
+  entrance.addComponent(new RenderableComponent(234, 0x736598, Layer.Terrain))
   entrance.addComponent(new CollisionTriggerComponent(
     new PostMessageEffect(`A magical force repels you from the entrance`),
     e => e.query('rogue')
