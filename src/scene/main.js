@@ -76,10 +76,6 @@ class MainScene extends Phaser.Scene {
       screenX = 0
       screenY++
     }
-  
-    // Draw rogue
-    
-    this.add.image(12 * 24, 9 * 24, 'ascii', glyph).setOrigin(0, 0).setTint(color)
   }
 
   update() {
@@ -196,10 +192,6 @@ class MainScene extends Phaser.Scene {
         screenX = 0
         screenY++
       }
-    
-      // Draw rogue
-      
-      this.add.image(12 * 24, 9 * 24, 'ascii', glyph).setOrigin(0, 0).setTint(color)
     } else if (collision) {
       Game.entityManager
           .getEntitiesAtPosition(collisionX, collisionY)
