@@ -1,9 +1,11 @@
 class MainScene extends Phaser.Scene {
-  constructor(frameWidth, frameHeight) {
+  constructor(frameWidth, frameHeight, cameraWidth, cameraHeight) {
     super()
 
     this.frameWidth = frameWidth
     this.frameHeight = frameHeight
+    this.cameraWidth = cameraWidth
+    this.cameraHeight = cameraHeight
     this.cursors = null
     this.entities = []
   }
@@ -27,45 +29,53 @@ class MainScene extends Phaser.Scene {
     // Draw floor
     const rogue = Game.entityManager.getRogue()
     const position = rogue.query('position')
+    const minX = position.x - ((this.cameraWidth - 1) / 2)
+    const maxX = position.x + ((this.cameraWidth - 1) / 2)
+    const minY = position.y - ((this.cameraHeight - 1) / 2)
+    const maxY = position.y + ((this.cameraHeight - 1) / 2)
     const glyph = rogue.query('glyph')
     const color = rogue.query('color')
-  
-    for (let y = 0; y < Game.map.terrain.length; y++) {
-      for (let x = 0; x < Game.map.terrain[y].length; x++) {
-        let tint
-  
-        switch (Game.map.terrain[y][x]) {
-          case 250:
-            tint = 0x3a3a3a
-            break
-          case 43:
-            tint = 0xa66b3a
-            break
-          default:
-            tint = 0x666666
-            break
-        }
-        
-        if (x !== position.x || y !== position.y)
-          this.add.image(x * 24, y * 24, 'ascii', Game.map.terrain[y][x]).setOrigin(0, 0).setTint(tint)
-      }
-    }
-
-    // Draw other entities
-
-    Game.entityManager.getAllEntities().forEach(e => {
-      let p = e.query('position')
-      let g = e.query('glyph')
-      let c = e.query('color')
-
-      this.add.image(p.x * 24, p.y * 24, 'ascii', g).setOrigin(0, 0).setTint(c)
-    })
-  
-    // Draw rogue
     
-    const x1 = position.x * 24
-    const y1 = position.y * 24
-    this.add.image(x1, y1, 'ascii', glyph).setOrigin(0, 0).setTint(color)
+    let screenX = 0
+    let screenY = 0
+
+    for (let y = minY; y <= maxY; y++) {
+      if (y >= 0 && y < Game.map.terrain.length) {
+        for (let x = minX; x <= maxX; x++) {
+          if (x >= 0 && x < Game.map.terrain[0].length) {
+            let tint
+    
+            switch (Game.map.terrain[y][x]) {
+              case 250:
+                tint = 0x3a3a3a
+                break
+              case 43:
+                tint = 0xa66b3a
+                break
+              default:
+                tint = 0x666666
+                break
+            }
+            
+            if (x !== position.x || y !== position.y) {
+              this.add.image(screenX * this.frameWidth, screenY * this.frameHeight, 'ascii', Game.map.terrain[y][x]).setOrigin(0, 0).setTint(tint)
+            }
+
+            Game.entityManager.getEntitiesAtPosition(x, y).forEach(e => {
+              let g = e.query('glyph')
+              let c = e.query('color')
+      
+              this.add.image(screenX * this.frameWidth, screenY * this.frameHeight, 'ascii', g).setOrigin(0, 0).setTint(c)
+            })
+          }
+
+          screenX++
+        }
+      }
+
+      screenX = 0
+      screenY++
+    }
   }
 
   update() {
@@ -135,45 +145,53 @@ class MainScene extends Phaser.Scene {
       // Draw floor
 
       const position = rogue.query('position')
+      const minX = position.x - ((this.cameraWidth - 1) / 2)
+      const maxX = position.x + ((this.cameraWidth - 1) / 2)
+      const minY = position.y - ((this.cameraHeight - 1) / 2)
+      const maxY = position.y + ((this.cameraHeight - 1) / 2)
       const glyph = rogue.query('glyph')
       const color = rogue.query('color')
   
-      for (let y = 0; y < Game.map.terrain.length; y++) {
-        for (let x = 0; x < Game.map.terrain[y].length; x++) {
-          let tint
-  
-          switch (Game.map.terrain[y][x]) {
-            case 250:
-              tint = 0x3a3a3a
-              break
-            case 43:
-              tint = 0xa66b3a
-              break
-            default:
-              tint = 0x666666
-              break
+      let screenX = 0
+      let screenY = 0
+
+      for (let y = minY; y <= maxY; y++) {
+        if (y >= 0 && y < Game.map.terrain.length) {
+          for (let x = minX; x <= maxX; x++) {
+            if (x >= 0 && x < Game.map.terrain[0].length) {
+              let tint
+      
+              switch (Game.map.terrain[y][x]) {
+                case 250:
+                  tint = 0x3a3a3a
+                  break
+                case 43:
+                  tint = 0xa66b3a
+                  break
+                default:
+                  tint = 0x666666
+                  break
+              }
+              
+              if (x !== position.x || y !== position.y) {
+                this.add.image(screenX * this.frameWidth, screenY * this.frameHeight, 'ascii', Game.map.terrain[y][x]).setOrigin(0, 0).setTint(tint)
+              }
+
+              Game.entityManager.getEntitiesAtPosition(x, y).forEach(e => {
+                let g = e.query('glyph')
+                let c = e.query('color')
+        
+                this.add.image(screenX * this.frameWidth, screenY * this.frameHeight, 'ascii', g).setOrigin(0, 0).setTint(c)
+              })
+            }
+
+            screenX++
           }
-          
-          if (x !== position.x || y !== position.y)
-            this.add.image(x * 24, y * 24, 'ascii', Game.map.terrain[y][x]).setOrigin(0, 0).setTint(tint)
         }
+
+        screenX = 0
+        screenY++
       }
-
-      // Draw other entities
-
-      Game.entityManager.getAllEntities().forEach(e => {
-        let p = e.query('position')
-        let g = e.query('glyph')
-        let c = e.query('color')
-
-        this.add.image(p.x * 24, p.y * 24, 'ascii', g).setOrigin(0, 0).setTint(c)
-      })
-  
-      // Draw rogue
-  
-      const x1 = position.x * 24
-      const y1 = position.y * 24
-      this.add.image(x1, y1, 'ascii', glyph).setOrigin(0, 0).setTint(color)
     } else if (collision) {
       Game.entityManager
           .getEntitiesAtPosition(collisionX, collisionY)

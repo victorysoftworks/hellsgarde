@@ -116,7 +116,9 @@
     backgroundColor: config.screen.color,
     scene: new MainScene(
       config.tileset.tileWidth,
-      config.tileset.tileHeight
+      config.tileset.tileHeight,
+      config.screen.width,
+      config.screen.height
     )
   })
 
