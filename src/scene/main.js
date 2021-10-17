@@ -61,12 +61,14 @@ class MainScene extends Phaser.Scene {
               this.add.image(screenX * this.frameWidth, screenY * this.frameHeight, 'ascii', Game.map.terrain[y][x]).setOrigin(0, 0).setTint(tint)
             }
 
-            Game.entityManager.getEntitiesAtPosition(x, y).forEach(e => {
-              let g = e.query('glyph')
-              let c = e.query('color')
+            const entityToRender = Game.entityManager.getRenderableEntityAtPosition(x, y)
+
+            if (entityToRender) {
+              let g = entityToRender.query('glyph')
+              let c = entityToRender.query('color')
       
               this.add.image(screenX * this.frameWidth, screenY * this.frameHeight, 'ascii', g).setOrigin(0, 0).setTint(c)
-            })
+            }
           }
 
           screenX++
@@ -177,12 +179,14 @@ class MainScene extends Phaser.Scene {
                 this.add.image(screenX * this.frameWidth, screenY * this.frameHeight, 'ascii', Game.map.terrain[y][x]).setOrigin(0, 0).setTint(tint)
               }
 
-              Game.entityManager.getEntitiesAtPosition(x, y).forEach(e => {
-                let g = e.query('glyph')
-                let c = e.query('color')
+              const entityToRender = Game.entityManager.getRenderableEntityAtPosition(x, y)
+
+              if (entityToRender) {
+                let g = entityToRender.query('glyph')
+                let c = entityToRender.query('color')
         
                 this.add.image(screenX * this.frameWidth, screenY * this.frameHeight, 'ascii', g).setOrigin(0, 0).setTint(c)
-              })
+              }
             }
 
             screenX++
