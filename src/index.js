@@ -26,6 +26,7 @@
   rogue.addComponent(new RenderableComponent(64, 0x588d71, Layer.Rogue))
   rogue.addComponent(new PositionComponent(7, 17))
   rogue.addComponent(new SolidComponent())
+  rogue.addComponent(new BleedingComponent())
   
   /****************************************************************************
    * Start game.
