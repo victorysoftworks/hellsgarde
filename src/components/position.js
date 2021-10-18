@@ -37,8 +37,13 @@ class PositionComponent extends Component {
    ***************************************************************************/
 
   move(x, y) {
+    const from = { x: this.x, y: this.y }
+    const to = { x, y }
+
     this.x = x
     this.y = y
+
+    this.owner.receive('moved', { from, to })
   }
 
   /****************************************************************************
