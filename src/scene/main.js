@@ -140,6 +140,9 @@ class MainScene extends Phaser.Scene {
     }
   
     if (moved) {
+      Game.turn++
+      Game.entityManager.getAllEntities().forEach(e => e.receive('endOfTurn'))
+      
       const messageBox = document.querySelector('[data-message]')
       messageBox.textContent = ''
   
