@@ -64,8 +64,10 @@ class BleedingComponent extends Component {
 
   leaveBloodDrop(x, y) {
     const blood = new Entity()
+    const duration = Math.floor(Math.random() * (20 - 10 + 1) + 10)
     blood.addComponent(new RenderableComponent(250, 0x96281b, Layer.Decal))
     blood.addComponent(new PositionComponent(x, y))
+    blood.addComponent(new EphemeralComponent(duration))
 
     Game.entityManager.addEntity(blood)
   }
