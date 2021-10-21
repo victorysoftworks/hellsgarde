@@ -24,6 +24,14 @@ class MainScene extends Phaser.Scene {
 
   create() {
     this.cursors = this.input.keyboard.createCursorKeys()
+    this.one = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ONE)
+    this.two = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TWO)
+    this.three = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.THREE)
+    this.four = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.FOUR)
+    this.six = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SIX)
+    this.seven = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SEVEN)
+    this.eight = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.EIGHT)
+    this.nine = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.NINE)
     this.render()
   }
 
@@ -92,7 +100,7 @@ class MainScene extends Phaser.Scene {
     
     // Left
 
-    if (this.cursors.left.isDown) {
+    if (this.cursors.left.isDown || this.four.isDown) {
       if (Game.squareIsOpen(currentPosition.x - 1, currentPosition.y)) {
         rogue.receive('move', { x: currentPosition.x - 1, y: currentPosition.y })
         moved = true
@@ -104,7 +112,7 @@ class MainScene extends Phaser.Scene {
     
     // Right
     
-    } else if (this.cursors.right.isDown) {
+    } else if (this.cursors.right.isDown || this.six.isDown) {
       if (Game.squareIsOpen(currentPosition.x + 1, currentPosition.y)) {
         rogue.receive('move', { x: currentPosition.x + 1, y: currentPosition.y })
         moved = true
@@ -116,7 +124,7 @@ class MainScene extends Phaser.Scene {
     
     // Up
     
-    } else if (this.cursors.up.isDown) {
+    } else if (this.cursors.up.isDown || this.eight.isDown) {
       if (Game.squareIsOpen(currentPosition.x, currentPosition.y - 1)) {
         rogue.receive('move', { x: currentPosition.x, y: currentPosition.y - 1 })
         moved = true
@@ -128,7 +136,7 @@ class MainScene extends Phaser.Scene {
     
     // Down
     
-    } else if (this.cursors.down.isDown) {
+    } else if (this.cursors.down.isDown || this.two.isDown) {
       if (Game.squareIsOpen(currentPosition.x, currentPosition.y + 1)) {
         rogue.receive('move', { x: currentPosition.x, y: currentPosition.y + 1 })
         moved = true
@@ -137,6 +145,57 @@ class MainScene extends Phaser.Scene {
         collisionX = currentPosition.x
         collisionY = currentPosition.y + 1
       }
+    
+    // Down-Left
+    
+    } else if (this.one.isDown) {
+      if (Game.squareIsOpen(currentPosition.x - 1, currentPosition.y + 1)) {
+        rogue.receive('move', { x: currentPosition.x - 1, y: currentPosition.y + 1 })
+        moved = true
+      } else {
+        collision = true
+        collisionX = currentPosition.x - 1
+        collisionY = currentPosition.y + 1
+      }
+    
+    // Down-Right
+    
+    } else if (this.three.isDown) {
+      if (Game.squareIsOpen(currentPosition.x + 1, currentPosition.y + 1)) {
+        rogue.receive('move', { x: currentPosition.x + 1, y: currentPosition.y + 1 })
+        moved = true
+      } else {
+        collision = true
+        collisionX = currentPosition.x + 1
+        collisionY = currentPosition.y + 1
+      }
+    
+    // Up-Left
+    
+    } else if (this.seven.isDown) {
+      if (Game.squareIsOpen(currentPosition.x - 1, currentPosition.y - 1)) {
+        rogue.receive('move', { x: currentPosition.x - 1, y: currentPosition.y - 1 })
+        moved = true
+      } else {
+        collision = true
+        collisionX = currentPosition.x - 1
+        collisionY = currentPosition.y - 1
+      }
+    
+    // Up-Right
+    
+    } else if (this.nine.isDown) {
+      if (Game.squareIsOpen(currentPosition.x + 1, currentPosition.y - 1)) {
+        rogue.receive('move', { x: currentPosition.x + 1, y: currentPosition.y - 1 })
+        moved = true
+      } else {
+        collision = true
+        collisionX = currentPosition.x + 1
+        collisionY = currentPosition.y - 1
+      }
+    
+    // ********
+    
     }
   
     if (moved) {
