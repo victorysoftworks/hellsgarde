@@ -17,8 +17,8 @@ class Entity {
 
   receive(type, params = {}) {
     const event = { type, params }
-    
-    this.components.sort((a, b) => b.priority > a.priority)
+
+    this.sortComponentsByPriority()
 
     this.components.forEach(c => c.receive(event))
   }
@@ -26,11 +26,23 @@ class Entity {
   query(type, result = null, params = {}) {
     const query = { type, result, params }
 
-    this.components.sort((a, b) => b.priority > a.priority)
+    this.sortComponentsByPriority()
 
     this.components.forEach(c => c.query(query))
 
     return query.result
+  }
+
+  sortComponentsByPriority() {
+    this.components.sort((a, b) => {
+      if (a.priority < b.priority) {
+        return -1
+      } else if (a.priority === b.priority) {
+        return 0
+      } else {
+        return 1
+      }
+    })
   }
 
 }
