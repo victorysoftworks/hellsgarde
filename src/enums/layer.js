@@ -9,8 +9,8 @@ const Layer = {
   Stairs: 3,
   Item: 4,
   Trap: 5,
-  Decal: 6,
-  Terrain: 7,
+  Terrain: 6,
+  Decal: 7,
   Floor: 8,
   Void: 9
 }

@@ -1,6 +1,7 @@
 class Game {
 
   static start() {
+    Game.turns = 0
     Game.map = new Map()
     Game.entityManager = new EntityManager()
   }

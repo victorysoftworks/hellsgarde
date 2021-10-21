@@ -1,21 +1,22 @@
 /******************************************************************************
- * An entity with the Position component has an X,Y position on the map.
+ * The TemporaryComponent class decorates another component. The decorated
+ * component is removed from its owning entity after a given number of turns.
  *****************************************************************************/
 
-class PositionComponent extends Component {
+class TemporaryComponent extends Component {
 
   /****************************************************************************
    * Constructor.
    * 
-   * @param {number} x X position
-   * @param {number} y Y position
+   * @param {Component} component Component to make temporary
+   * @param {number} duration Number of turns the entity should persist
    ***************************************************************************/
   
-  constructor(x, y) {
-    super(Priority.Default)
+  constructor(component, duration) {
+    super(Priority.Low)
 
-    this.x = x
-    this.y = y
+    this.component = component
+    this.duration = duration
   }
 
   /****************************************************************************
@@ -25,25 +26,22 @@ class PositionComponent extends Component {
    ***************************************************************************/
 
   receive(event) {
-    if (event.type === 'move')
-      this.move(event.params.x, event.params.y)
+    if (event.type === 'endOfTurn')
+      this.expire()
+    
+    this.component.receive(event)
   }
 
   /****************************************************************************
-   * Sets the entity's X,Y position.
-   * 
-   * @param {number} x X position
-   * @param {number} y Y position
+   * Handles the temporary component expiring.
    ***************************************************************************/
 
-  move(x, y) {
-    const from = { x: this.x, y: this.y }
-    const to = { x, y }
+  expire() {
+    this.duration--
 
-    this.x = x
-    this.y = y
-
-    this.owner.receive('moved', { from, to })
+    if (this.duration === 0) {
+      this.owner.removeComponent(this)
+    }
   }
 
   /****************************************************************************
@@ -53,8 +51,7 @@ class PositionComponent extends Component {
    ***************************************************************************/
 
   query(query) {
-    if (query.type === 'position')
-      query.result = { x: this.x, y: this.y }
+    this.component.query(query)
   }
 
 }
