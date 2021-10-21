@@ -70,26 +70,32 @@
   const water1 = new Entity()
   water1.addComponent(new PositionComponent(3, 3))
   water1.addComponent(new RenderableComponent(176, 0x59abe3, Layer.Terrain))
+  water1.addComponent(new WaterComponent())
 
   const water2 = new Entity()
   water2.addComponent(new PositionComponent(4, 3))
   water2.addComponent(new RenderableComponent(176, 0x59abe3, Layer.Terrain))
+  water2.addComponent(new WaterComponent())
 
   const water3 = new Entity()
   water3.addComponent(new PositionComponent(5, 3))
   water3.addComponent(new RenderableComponent(176, 0x59abe3, Layer.Terrain))
+  water3.addComponent(new WaterComponent())
 
   const water4 = new Entity()
   water4.addComponent(new PositionComponent(3, 4))
   water4.addComponent(new RenderableComponent(176, 0x59abe3, Layer.Terrain))
+  water4.addComponent(new WaterComponent())
 
   const water5 = new Entity()
   water5.addComponent(new PositionComponent(4, 4))
   water5.addComponent(new RenderableComponent(176, 0x59abe3, Layer.Terrain))
+  water5.addComponent(new WaterComponent())
 
   const water6 = new Entity()
   water6.addComponent(new PositionComponent(5, 4))
   water6.addComponent(new RenderableComponent(176, 0x59abe3, Layer.Terrain))
+  water6.addComponent(new WaterComponent())
 
   Game.entityManager.addEntities([
     rogue, 
