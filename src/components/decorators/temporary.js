@@ -28,6 +28,8 @@ class TemporaryComponent extends Component {
   receive(event) {
     if (event.type === 'endOfTurn')
       this.expire()
+    
+    this.component.receive(event)
   }
 
   /****************************************************************************
@@ -40,6 +42,16 @@ class TemporaryComponent extends Component {
     if (this.duration === 0) {
       this.owner.removeComponent(this)
     }
+  }
+
+  /****************************************************************************
+   * Handles queries made to the component.
+   * 
+   * @param {Query} query Query to handle
+   ***************************************************************************/
+
+  query(query) {
+    this.component.query(query)
   }
 
 }
