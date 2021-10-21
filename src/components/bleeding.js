@@ -21,14 +21,45 @@ class BleedingComponent extends Component {
 
   receive(event) {
     if (event.type === 'moved')
-      this.leaveBloodDrop(event.params.from.x, event.params.from.y)
+      this.bleed(event.params.from.x, event.params.from.y)
   }
 
   /****************************************************************************
-   * Leaves a temporary blood drop in the space the bleeding entity just
-   * moved from.
+   * Handles an entity bleeding out.
    * 
-   * @param {number} glyph ASCII glyph code
+   * @param {number} x X position of bleeding entity
+   * @param {number} y Y position of bleeding entity
+   ***************************************************************************/
+
+  bleed(x, y) {
+    
+    // Check for water entities in the square. If there are, "stain" the water
+    // rather than leaving a blood drop.
+
+    const waterEntities = Game.entityManager
+                              .getEntitiesAtPosition(x, y)
+                              .filter(e => e.query('water'))
+    
+    waterEntities.length
+      ? this.stainWater(waterEntities[0])
+      : this.leaveBloodDrop(x, y)
+  }
+
+  /****************************************************************************
+   * Stains the given water entity red with blood.
+   * 
+   * @param {Entity} water Water entity to stain with blood
+   ***************************************************************************/
+
+  stainWater(water) {
+    water.receive('setColor', { color: 0x96281b })
+  }
+
+  /****************************************************************************
+   * Leaves a temporary blood drop decal at the given X,Y position.
+   * 
+   * @param {number} x X position of bleeding entity
+   * @param {number} y Y position of bleeding entity
    ***************************************************************************/
 
   leaveBloodDrop(x, y) {
