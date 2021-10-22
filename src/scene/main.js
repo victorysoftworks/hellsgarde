@@ -149,7 +149,7 @@ class MainScene extends Phaser.Scene {
     // Down-Left
     
     } else if (this.one.isDown) {
-      if (Game.squareIsOpen(currentPosition.x - 1, currentPosition.y + 1)) {
+      if (Game.squareIsOpen(currentPosition.x - 1, currentPosition.y + 1) && ( ! Game.map.collision[currentPosition.y][currentPosition.x-1]) && ( ! Game.map.collision[currentPosition.y+1][currentPosition.x])) {
         rogue.receive('move', { x: currentPosition.x - 1, y: currentPosition.y + 1 })
         moved = true
       } else {
@@ -161,7 +161,7 @@ class MainScene extends Phaser.Scene {
     // Down-Right
     
     } else if (this.three.isDown) {
-      if (Game.squareIsOpen(currentPosition.x + 1, currentPosition.y + 1)) {
+      if (Game.squareIsOpen(currentPosition.x + 1, currentPosition.y + 1) && ( ! Game.map.collision[currentPosition.y][currentPosition.x+1]) && ( ! Game.map.collision[currentPosition.y+1][currentPosition.x])) {
         rogue.receive('move', { x: currentPosition.x + 1, y: currentPosition.y + 1 })
         moved = true
       } else {
@@ -173,7 +173,7 @@ class MainScene extends Phaser.Scene {
     // Up-Left
     
     } else if (this.seven.isDown) {
-      if (Game.squareIsOpen(currentPosition.x - 1, currentPosition.y - 1)) {
+      if (Game.squareIsOpen(currentPosition.x - 1, currentPosition.y - 1) && ( ! Game.map.collision[currentPosition.y][currentPosition.x-1]) && ( ! Game.map.collision[currentPosition.y-1][currentPosition.x])) {
         rogue.receive('move', { x: currentPosition.x - 1, y: currentPosition.y - 1 })
         moved = true
       } else {
@@ -185,7 +185,7 @@ class MainScene extends Phaser.Scene {
     // Up-Right
     
     } else if (this.nine.isDown) {
-      if (Game.squareIsOpen(currentPosition.x + 1, currentPosition.y - 1)) {
+      if (Game.squareIsOpen(currentPosition.x + 1, currentPosition.y - 1) && ( ! Game.map.collision[currentPosition.y][currentPosition.x+1]) && ( ! Game.map.collision[currentPosition.y-1][currentPosition.x])) {
         rogue.receive('move', { x: currentPosition.x + 1, y: currentPosition.y - 1 })
         moved = true
       } else {
