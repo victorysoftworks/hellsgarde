@@ -4,6 +4,7 @@ const dedupe = require('gulp-dedupe')
 
 const files = [
   './vendor/*.js',
+  './random/*.js',
   './src/enums/*.js',
   './src/behaviors/behavior.js',
   './src/components/component.js',

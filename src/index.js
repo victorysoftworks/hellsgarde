@@ -99,13 +99,13 @@
 
   const maxGrass = 64
   for (let i = 0; i < maxGrass; i++) {
-    let x = Math.floor(Math.random() * ((Game.map.terrain[0].length-1) - 0 + 1) + 0)
-    let y = Math.floor(Math.random() * ((Game.map.terrain.length-1) - 0 + 1) + 0)
+    let x = Random.number(0, Game.map.terrain[0].length - 1)
+    let y = Random.number(0, Game.map.terrain.length - 1)
 
     if (Game.map.terrain[y][x] === 250) {
       // Only place grass over floor
       const grass = new Entity()
-      const color = i % 4 === 0 ? 0x49525c : 0x324a3e
+      const color = Random.choice([0x324a3e, 0x324a3e, 0x324a3e, 0x49525c])
       grass.addComponent(new PositionComponent(x, y))
       grass.addComponent(new RenderableComponent(249, color, Layer.Floor))
       Game.entityManager.addEntity(grass)
