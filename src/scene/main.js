@@ -92,113 +92,21 @@ class MainScene extends Phaser.Scene {
   }
 
   processTurn() {
-    const rogue = Game.entityManager.getRogue()
-    let currentPosition = rogue.query('position')
-    let moved = false
-    let collision = false
-    let collisionX, collisionY
-    
-    // Left
+    Game.entityManager.getAllEntities().forEach(e => e.receive('startOfTurn'))
 
-    if (this.cursors.left.isDown || this.four.isDown) {
-      if (Game.squareIsOpen(currentPosition.x - 1, currentPosition.y)) {
-        rogue.receive('move', { x: currentPosition.x - 1, y: currentPosition.y })
-        moved = true
-      } else {
-        collision = true
-        collisionX = currentPosition.x - 1
-        collisionY = currentPosition.y
-      }
+    const rogue = Game.entityManager.getRogue()
+    const behaviors = rogue.query('behaviors')
+    const input = this.generatePressedKeysArray()
     
-    // Right
-    
-    } else if (this.cursors.right.isDown || this.six.isDown) {
-      if (Game.squareIsOpen(currentPosition.x + 1, currentPosition.y)) {
-        rogue.receive('move', { x: currentPosition.x + 1, y: currentPosition.y })
-        moved = true
-      } else {
-        collision = true
-        collisionX = currentPosition.x + 1
-        collisionY = currentPosition.y
-      }
-    
-    // Up
-    
-    } else if (this.cursors.up.isDown || this.eight.isDown) {
-      if (Game.squareIsOpen(currentPosition.x, currentPosition.y - 1)) {
-        rogue.receive('move', { x: currentPosition.x, y: currentPosition.y - 1 })
-        moved = true
-      } else {
-        collision = true
-        collisionX = currentPosition.x
-        collisionY = currentPosition.y - 1
-      }
-    
-    // Down
-    
-    } else if (this.cursors.down.isDown || this.two.isDown) {
-      if (Game.squareIsOpen(currentPosition.x, currentPosition.y + 1)) {
-        rogue.receive('move', { x: currentPosition.x, y: currentPosition.y + 1 })
-        moved = true
-      } else {
-        collision = true
-        collisionX = currentPosition.x
-        collisionY = currentPosition.y + 1
-      }
-    
-    // Down-Left
-    
-    } else if (this.one.isDown) {
-      if (Game.squareIsOpen(currentPosition.x - 1, currentPosition.y + 1) && ( ! Game.map.collision[currentPosition.y][currentPosition.x-1]) && ( ! Game.map.collision[currentPosition.y+1][currentPosition.x])) {
-        rogue.receive('move', { x: currentPosition.x - 1, y: currentPosition.y + 1 })
-        moved = true
-      } else {
-        collision = true
-        collisionX = currentPosition.x - 1
-        collisionY = currentPosition.y + 1
-      }
-    
-    // Down-Right
-    
-    } else if (this.three.isDown) {
-      if (Game.squareIsOpen(currentPosition.x + 1, currentPosition.y + 1) && ( ! Game.map.collision[currentPosition.y][currentPosition.x+1]) && ( ! Game.map.collision[currentPosition.y+1][currentPosition.x])) {
-        rogue.receive('move', { x: currentPosition.x + 1, y: currentPosition.y + 1 })
-        moved = true
-      } else {
-        collision = true
-        collisionX = currentPosition.x + 1
-        collisionY = currentPosition.y + 1
-      }
-    
-    // Up-Left
-    
-    } else if (this.seven.isDown) {
-      if (Game.squareIsOpen(currentPosition.x - 1, currentPosition.y - 1) && ( ! Game.map.collision[currentPosition.y][currentPosition.x-1]) && ( ! Game.map.collision[currentPosition.y-1][currentPosition.x])) {
-        rogue.receive('move', { x: currentPosition.x - 1, y: currentPosition.y - 1 })
-        moved = true
-      } else {
-        collision = true
-        collisionX = currentPosition.x - 1
-        collisionY = currentPosition.y - 1
-      }
-    
-    // Up-Right
-    
-    } else if (this.nine.isDown) {
-      if (Game.squareIsOpen(currentPosition.x + 1, currentPosition.y - 1) && ( ! Game.map.collision[currentPosition.y][currentPosition.x+1]) && ( ! Game.map.collision[currentPosition.y-1][currentPosition.x])) {
-        rogue.receive('move', { x: currentPosition.x + 1, y: currentPosition.y - 1 })
-        moved = true
-      } else {
-        collision = true
-        collisionX = currentPosition.x + 1
-        collisionY = currentPosition.y - 1
-      }
-    
-    // ********
-    
-    }
+    let acted = false
+
+    behaviors.forEach(behavior => {
+      const result = behavior.act(input)
+
+      if (result) acted = true
+    })
   
-    if (moved) {
+    if (acted) {
       Game.turn++
       Game.entityManager.getAllEntities().forEach(e => e.receive('endOfTurn'))
       
@@ -207,11 +115,49 @@ class MainScene extends Phaser.Scene {
   
       this.scene.restart()
       this.render()
-    } else if (collision) {
-      Game.entityManager
-          .getEntitiesAtPosition(collisionX, collisionY)
-          .forEach(e => e.receive('collidedWith', { collider: rogue }))
     }
+  }
+
+  generatePressedKeysArray() {
+    const keys = []
+
+    if (this.one.isDown)
+      keys.push('ONE')
+    
+    if (this.two.isDown)
+      keys.push('TWO')
+    
+    if (this.three.isDown)
+      keys.push('THREE')
+    
+    if (this.four.isDown)
+      keys.push('FOUR')
+    
+    if (this.six.isDown)
+      keys.push('SIX')
+    
+    if (this.seven.isDown)
+      keys.push('SEVEN')
+    
+    if (this.eight.isDown)
+      keys.push('EIGHT')
+    
+    if (this.nine.isDown)
+      keys.push('NINE')
+    
+    if (this.cursors.left.isDown)
+      keys.push('CURSOR_LEFT')
+    
+    if (this.cursors.right.isDown)
+      keys.push('CURSOR_RIGHT')
+    
+    if (this.cursors.up.isDown)
+      keys.push('CURSOR_UP')
+    
+    if (this.cursors.down.isDown)
+      keys.push('CURSOR_DOWN')
+
+    return keys
   }
 
 }
