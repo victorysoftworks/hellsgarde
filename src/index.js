@@ -27,6 +27,9 @@
   rogue.addComponent(new PositionComponent(7, 17))
   rogue.addComponent(new SolidComponent())
   rogue.addComponent(new TemporaryComponent(new BleedingComponent(), 20))
+  rogue.addComponent(new ActorComponent([
+    new PlayerControlledBehavior()
+  ]))
   
   /****************************************************************************
    * Start game.
