@@ -46,6 +46,9 @@ class ActorComponent extends Component {
    ***************************************************************************/
 
   query(query) {
+    if (query.type === 'actor')
+      query.result = true
+    
     if (query.type === 'behaviors')
       query.result = this.behaviors
     
