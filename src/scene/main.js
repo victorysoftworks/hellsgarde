@@ -28,6 +28,7 @@ class MainScene extends Phaser.Scene {
     this.two = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TWO)
     this.three = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.THREE)
     this.four = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.FOUR)
+    this.five = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.FIVE)
     this.six = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SIX)
     this.seven = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SEVEN)
     this.eight = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.EIGHT)
@@ -107,6 +108,22 @@ class MainScene extends Phaser.Scene {
     })
   
     if (acted) {
+
+      // Process non-Rogue actors
+
+      const nonRogueActors = Game.entityManager
+                                 .getAllEntities()
+                                 .filter(e => e.query('actor'))
+                                 .filter(e => ! e.query('rogue'))
+      
+      nonRogueActors.forEach(a => {
+        const enemyBehaviors = a.query('behaviors')
+
+        enemyBehaviors.forEach(b => b.act())
+      })
+
+      // End of turn
+
       Game.turn++
       Game.entityManager.getAllEntities().forEach(e => e.receive('endOfTurn'))
       
@@ -132,6 +149,9 @@ class MainScene extends Phaser.Scene {
     
     if (this.four.isDown)
       keys.push('FOUR')
+    
+    if (this.five.isDown)
+      keys.push('FIVE')
     
     if (this.six.isDown)
       keys.push('SIX')

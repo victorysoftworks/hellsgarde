@@ -59,6 +59,9 @@
   marilith.addComponent(new PositionComponent(12, 8))
   marilith.addComponent(new RenderableComponent(77, 0xd24d57, Layer.Monster))
   marilith.addComponent(new SolidComponent())
+  marilith.addComponent(new ActorComponent([
+    new WanderBehavior()
+  ]))
 
   const statue1 = new Entity()
   statue1.addComponent(new PositionComponent(6, 12))
