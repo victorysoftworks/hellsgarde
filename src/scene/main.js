@@ -107,6 +107,22 @@ class MainScene extends Phaser.Scene {
     })
   
     if (acted) {
+
+      // Process non-Rogue actors
+
+      const nonRogueActors = Game.entityManager
+                                 .getAllEntities()
+                                 .filter(e => e.query('actor'))
+                                 .filter(e => ! e.query('rogue'))
+      
+      nonRogueActors.forEach(a => {
+        const enemyBehaviors = a.query('behaviors')
+
+        enemyBehaviors.forEach(b => b.act())
+      })
+
+      // End of turn
+
       Game.turn++
       Game.entityManager.getAllEntities().forEach(e => e.receive('endOfTurn'))
       
