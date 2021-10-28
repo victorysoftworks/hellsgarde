@@ -62,6 +62,12 @@ class PlayerControlledBehavior extends Behavior {
       return this.move(1, 1)
     }
 
+    // Wait
+
+    else if (this.inputContains(input, ['FIVE'])) {
+      return true
+    }
+
     // No action
 
     else {
