@@ -33,6 +33,15 @@ class MainScene extends Phaser.Scene {
     this.seven = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SEVEN)
     this.eight = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.EIGHT)
     this.nine = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.NINE)
+    this.numpadOne = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.NUMPAD_ONE)
+    this.numpadTwo = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.NUMPAD_TWO)
+    this.numpadThree = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.NUMPAD_THREE)
+    this.numpadFour = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.NUMPAD_FOUR)
+    this.numpadFive = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.NUMPAD_FIVE)
+    this.numpadSix = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.NUMPAD_SIX)
+    this.numpadSeven = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.NUMPAD_SEVEN)
+    this.numpadEight = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.NUMPAD_EIGHT)
+    this.numpadNine = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.NUMPAD_NINE)
     this.render()
   }
 
@@ -138,31 +147,31 @@ class MainScene extends Phaser.Scene {
   generatePressedKeysArray() {
     const keys = []
 
-    if (this.one.isDown)
+    if (this.one.isDown || this.numpadOne.isDown)
       keys.push('ONE')
     
-    if (this.two.isDown)
+    if (this.two.isDown || this.numpadTwo.isDown)
       keys.push('TWO')
     
-    if (this.three.isDown)
+    if (this.three.isDown || this.numpadThree.isDown)
       keys.push('THREE')
     
-    if (this.four.isDown)
+    if (this.four.isDown || this.numpadFour.isDown)
       keys.push('FOUR')
     
-    if (this.five.isDown)
+    if (this.five.isDown || this.numpadFive.isDown)
       keys.push('FIVE')
     
-    if (this.six.isDown)
+    if (this.six.isDown || this.numpadSix.isDown)
       keys.push('SIX')
     
-    if (this.seven.isDown)
+    if (this.seven.isDown || this.numpadSeven.isDown)
       keys.push('SEVEN')
     
-    if (this.eight.isDown)
+    if (this.eight.isDown || this.numpadEight.isDown)
       keys.push('EIGHT')
     
-    if (this.nine.isDown)
+    if (this.nine.isDown || this.numpadNine.isDown)
       keys.push('NINE')
     
     if (this.cursors.left.isDown)
