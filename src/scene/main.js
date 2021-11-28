@@ -1,10 +1,10 @@
 class MainScene extends Phaser.Scene {
 
-  constructor(frameWidth, frameHeight, cameraWidth, cameraHeight) {
+  constructor(tileWidth, tileHeight, cameraWidth, cameraHeight) {
     super()
 
-    this.frameWidth = frameWidth
-    this.frameHeight = frameHeight
+    this.tileWidth = tileWidth
+    this.tileHeight = tileHeight
     this.cameraWidth = cameraWidth
     this.cameraHeight = cameraHeight
     this.cursors = null
@@ -16,8 +16,8 @@ class MainScene extends Phaser.Scene {
     this.load.spritesheet('ascii', 
       './data/ascii.png',
       {
-        frameWidth: this.frameWidth,
-        frameHeight: this.frameHeight
+        frameWidth: this.tileWidth,
+        frameHeight: this.tileHeight
       }
     )
   }
@@ -79,7 +79,7 @@ class MainScene extends Phaser.Scene {
             }
             
             if (x !== position.x || y !== position.y) {
-              this.add.image(screenX * this.frameWidth, screenY * this.frameHeight, 'ascii', Game.map.terrain[y][x]).setOrigin(0, 0).setTint(tint)
+              this.add.image(screenX * this.tileWidth, screenY * this.tileHeight, 'ascii', Game.map.terrain[y][x]).setOrigin(0, 0).setTint(tint)
             }
 
             const entityToRender = Game.entityManager.getRenderableEntityAtPosition(x, y)
@@ -88,7 +88,7 @@ class MainScene extends Phaser.Scene {
               let g = entityToRender.query('glyph')
               let c = entityToRender.query('color')
       
-              this.add.image(screenX * this.frameWidth, screenY * this.frameHeight, 'ascii', g).setOrigin(0, 0).setTint(c)
+              this.add.image(screenX * this.tileWidth, screenY * this.tileHeight, 'ascii', g).setOrigin(0, 0).setTint(c)
             }
           }
 
