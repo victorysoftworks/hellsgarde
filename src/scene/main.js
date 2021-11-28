@@ -102,12 +102,29 @@ class MainScene extends Phaser.Scene {
   }
 
   processTurn() {
-    Game.entityManager.getAllEntities().forEach(e => e.receive('startOfTurn'))
+    this.broadcastStartOfTurnEvent()
+    
+    const acted = this.processRogue()
+  
+    if (acted) {
+      this.processNonRogueActors()
+      this.tick()
+      this.broadcastEndOfTurnEvent()
+      this.clearMessageBox()
+      this.scene.restart()
+      this.render()
+    }
+  }
 
+  broadcastStartOfTurnEvent() {
+    Game.entityManager.getAllEntities().forEach(e => e.receive('startOfTurn'))
+  }
+
+  processRogue() {
     const rogue = Game.entityManager.getRogue()
     const behaviors = rogue.query('behaviors')
     const input = this.generatePressedKeysArray()
-    
+
     let acted = false
 
     behaviors.forEach(behavior => {
@@ -115,33 +132,34 @@ class MainScene extends Phaser.Scene {
 
       if (result) acted = true
     })
-  
-    if (acted) {
 
-      // Process non-Rogue actors
+    return acted
+  }
 
-      const nonRogueActors = Game.entityManager
-                                 .getAllEntities()
-                                 .filter(e => e.query('actor'))
-                                 .filter(e => ! e.query('rogue'))
-      
-      nonRogueActors.forEach(a => {
-        const enemyBehaviors = a.query('behaviors')
+  processNonRogueActors() {
+    const nonRogueActors = Game.entityManager
+                               .getAllEntities()
+                               .filter(e => e.query('actor'))
+                               .filter(e => ! e.query('rogue'))
+    
+    nonRogueActors.forEach(a => {
+      const enemyBehaviors = a.query('behaviors')
 
-        enemyBehaviors.forEach(b => b.act())
-      })
+      enemyBehaviors.forEach(b => b.act())
+    })
+  }
 
-      // End of turn
+  tick() {
+    Game.turn++
+  }
 
-      Game.turn++
-      Game.entityManager.getAllEntities().forEach(e => e.receive('endOfTurn'))
-      
-      const messageBox = document.querySelector('[data-message]')
-      messageBox.textContent = ''
-  
-      this.scene.restart()
-      this.render()
-    }
+  broadcastEndOfTurnEvent() {
+    Game.entityManager.getAllEntities().forEach(e => e.receive('endOfTurn'))
+  }
+
+  clearMessageBox() {
+    const messageBox = document.querySelector('[data-message]')
+    messageBox.textContent = ''
   }
 
   generatePressedKeysArray() {
