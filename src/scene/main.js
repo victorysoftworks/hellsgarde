@@ -122,12 +122,11 @@ class MainScene extends Phaser.Scene {
 
   processRogue() {
     const rogue = Game.entityManager.getRogue()
-    const behaviors = rogue.query('behaviors')
     const input = this.generatePressedKeysArray()
 
     let acted = false
 
-    behaviors.forEach(behavior => {
+    rogue.query('behaviors').forEach(behavior => {
       const result = behavior.act(input)
 
       if (result) acted = true
@@ -137,16 +136,11 @@ class MainScene extends Phaser.Scene {
   }
 
   processNonRogueActors() {
-    const nonRogueActors = Game.entityManager
-                               .getAllEntities()
-                               .filter(e => e.query('actor'))
-                               .filter(e => ! e.query('rogue'))
-    
-    nonRogueActors.forEach(a => {
-      const enemyBehaviors = a.query('behaviors')
-
-      enemyBehaviors.forEach(b => b.act())
-    })
+    Game.entityManager
+        .getAllEntities()
+        .filter(e => e.query('actor'))
+        .filter(e => ! e.query('rogue'))
+        .forEach(e => e.query('behaviors').forEach(b => b.act()))
   }
 
   tick() {
@@ -158,8 +152,7 @@ class MainScene extends Phaser.Scene {
   }
 
   clearMessageBox() {
-    const messageBox = document.querySelector('[data-message]')
-    messageBox.textContent = ''
+    document.querySelector('[data-message]').textContent = ''
   }
 
   generatePressedKeysArray() {
