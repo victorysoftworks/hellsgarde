@@ -1,28 +1,58 @@
+/******************************************************************************
+ * The Main scene in which the player explores the dungeon.
+ *****************************************************************************/
+
 class MainScene extends Phaser.Scene {
 
-  constructor(frameWidth, frameHeight, cameraWidth, cameraHeight) {
+  /****************************************************************************
+   * Constructor.
+   * 
+   * @param {number} tileWidth Width of sprite tile in pixels
+   * @param {number} tileHeight Height of sprite tile in pixels
+   * @param {number} cameraWidth Width of camera viewport in pixels
+   * @param {number} cameraHeight Height of camera viewport in pixels
+   ***************************************************************************/
+  
+  constructor(tileWidth, tileHeight, cameraWidth, cameraHeight) {
     super()
 
-    this.frameWidth = frameWidth
-    this.frameHeight = frameHeight
+    this.tileWidth = tileWidth
+    this.tileHeight = tileHeight
     this.cameraWidth = cameraWidth
     this.cameraHeight = cameraHeight
     this.cursors = null
     this.entities = []
   }
 
+  /****************************************************************************
+   * Runs before the scene is created.
+   ***************************************************************************/
+
   preload() {
     this.load.json('ascii', './data/ascii.json')
     this.load.spritesheet('ascii', 
       './data/ascii.png',
       {
-        frameWidth: this.frameWidth,
-        frameHeight: this.frameHeight
+        frameWidth: this.tileWidth,
+        frameHeight: this.tileHeight
       }
     )
   }
 
+  /****************************************************************************
+   * Runs when the scene is first created.
+   ***************************************************************************/
+
   create() {
+    this.registerKeys()
+    this.render()
+  }
+
+  /****************************************************************************
+   * Registers keys that the scene responds to.
+   ***************************************************************************/
+
+  registerKeys() {
     this.cursors = this.input.keyboard.createCursorKeys()
     this.one = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ONE)
     this.two = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TWO)
@@ -42,12 +72,19 @@ class MainScene extends Phaser.Scene {
     this.numpadSeven = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.NUMPAD_SEVEN)
     this.numpadEight = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.NUMPAD_EIGHT)
     this.numpadNine = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.NUMPAD_NINE)
-    this.render()
   }
+
+  /****************************************************************************
+   * Runs each frame.
+   ***************************************************************************/
 
   update() {
     this.processTurn()
   }
+
+  /****************************************************************************
+   * Renders the scene to the canvas.
+   ***************************************************************************/
 
   render() {
     const rogue = Game.entityManager.getRogue()
@@ -79,7 +116,7 @@ class MainScene extends Phaser.Scene {
             }
             
             if (x !== position.x || y !== position.y) {
-              this.add.image(screenX * this.frameWidth, screenY * this.frameHeight, 'ascii', Game.map.terrain[y][x]).setOrigin(0, 0).setTint(tint)
+              this.add.image(screenX * this.tileWidth, screenY * this.tileHeight, 'ascii', Game.map.terrain[y][x]).setOrigin(0, 0).setTint(tint)
             }
 
             const entityToRender = Game.entityManager.getRenderableEntityAtPosition(x, y)
@@ -88,7 +125,7 @@ class MainScene extends Phaser.Scene {
               let g = entityToRender.query('glyph')
               let c = entityToRender.query('color')
       
-              this.add.image(screenX * this.frameWidth, screenY * this.frameHeight, 'ascii', g).setOrigin(0, 0).setTint(c)
+              this.add.image(screenX * this.tileWidth, screenY * this.tileHeight, 'ascii', g).setOrigin(0, 0).setTint(c)
             }
           }
 
@@ -101,48 +138,91 @@ class MainScene extends Phaser.Scene {
     }
   }
 
+  /****************************************************************************
+   * Processes the turn.
+   ***************************************************************************/
+
   processTurn() {
-    Game.entityManager.getAllEntities().forEach(e => e.receive('startOfTurn'))
-
-    const rogue = Game.entityManager.getRogue()
-    const behaviors = rogue.query('behaviors')
-    const input = this.generatePressedKeysArray()
+    this.broadcastStartOfTurnEvent()
     
-    let acted = false
-
-    behaviors.forEach(behavior => {
-      const result = behavior.act(input)
-
-      if (result) acted = true
-    })
+    const acted = this.processRogue()
   
     if (acted) {
-
-      // Process non-Rogue actors
-
-      const nonRogueActors = Game.entityManager
-                                 .getAllEntities()
-                                 .filter(e => e.query('actor'))
-                                 .filter(e => ! e.query('rogue'))
-      
-      nonRogueActors.forEach(a => {
-        const enemyBehaviors = a.query('behaviors')
-
-        enemyBehaviors.forEach(b => b.act())
-      })
-
-      // End of turn
-
-      Game.turn++
-      Game.entityManager.getAllEntities().forEach(e => e.receive('endOfTurn'))
-      
-      const messageBox = document.querySelector('[data-message]')
-      messageBox.textContent = ''
-  
+      this.processNonRogueActors()
+      this.tick()
+      this.broadcastEndOfTurnEvent()
+      this.clearMessageBox()
       this.scene.restart()
       this.render()
     }
   }
+
+  /****************************************************************************
+   * Broadcasts a start of turn event to all entities.
+   ***************************************************************************/
+
+  broadcastStartOfTurnEvent() {
+    Game.entityManager.getAllEntities().forEach(e => e.receive('startOfTurn'))
+  }
+
+  /****************************************************************************
+   * Processes the rogue's turn.
+   ***************************************************************************/
+
+  processRogue() {
+    const rogue = Game.entityManager.getRogue()
+    const input = this.generatePressedKeysArray()
+
+    let acted = false
+
+    rogue.query('behaviors').forEach(behavior => {
+      const result = behavior.act(input)
+
+      if (result) acted = true
+    })
+
+    return acted
+  }
+
+  /****************************************************************************
+   * Processes all non-rogue actors' turns.
+   ***************************************************************************/
+
+  processNonRogueActors() {
+    Game.entityManager
+        .getAllEntities()
+        .filter(e => e.query('actor'))
+        .filter(e => ! e.query('rogue'))
+        .forEach(e => e.query('behaviors').forEach(b => b.act()))
+  }
+
+  /****************************************************************************
+   * Increments the game turn counter.
+   ***************************************************************************/
+
+  tick() {
+    Game.turn++
+  }
+
+  /****************************************************************************
+   * Broadcasts an end of turn event to all entities.
+   ***************************************************************************/
+
+  broadcastEndOfTurnEvent() {
+    Game.entityManager.getAllEntities().forEach(e => e.receive('endOfTurn'))
+  }
+
+  /****************************************************************************
+   * Clears the message box.
+   ***************************************************************************/
+
+  clearMessageBox() {
+    document.querySelector('[data-message]').textContent = ''
+  }
+
+  /****************************************************************************
+   * Returns an array of values representing each key pressed this frame.
+   ***************************************************************************/
 
   generatePressedKeysArray() {
     const keys = []
