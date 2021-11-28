@@ -1,5 +1,18 @@
+/******************************************************************************
+ * The Main scene in which the player explores the dungeon.
+ *****************************************************************************/
+
 class MainScene extends Phaser.Scene {
 
+  /****************************************************************************
+   * Constructor.
+   * 
+   * @param {number} tileWidth Width of sprite tile in pixels
+   * @param {number} tileHeight Height of sprite tile in pixels
+   * @param {number} cameraWidth Width of camera viewport in pixels
+   * @param {number} cameraHeight Height of camera viewport in pixels
+   ***************************************************************************/
+  
   constructor(tileWidth, tileHeight, cameraWidth, cameraHeight) {
     super()
 
@@ -11,6 +24,10 @@ class MainScene extends Phaser.Scene {
     this.entities = []
   }
 
+  /****************************************************************************
+   * Runs before the scene is created.
+   ***************************************************************************/
+
   preload() {
     this.load.json('ascii', './data/ascii.json')
     this.load.spritesheet('ascii', 
@@ -21,6 +38,10 @@ class MainScene extends Phaser.Scene {
       }
     )
   }
+
+  /****************************************************************************
+   * Runs when the scene is first created.
+   ***************************************************************************/
 
   create() {
     this.cursors = this.input.keyboard.createCursorKeys()
@@ -45,9 +66,17 @@ class MainScene extends Phaser.Scene {
     this.render()
   }
 
+  /****************************************************************************
+   * Runs each frame.
+   ***************************************************************************/
+
   update() {
     this.processTurn()
   }
+
+  /****************************************************************************
+   * Renders the scene to the canvas.
+   ***************************************************************************/
 
   render() {
     const rogue = Game.entityManager.getRogue()
@@ -101,6 +130,10 @@ class MainScene extends Phaser.Scene {
     }
   }
 
+  /****************************************************************************
+   * Processes the turn.
+   ***************************************************************************/
+
   processTurn() {
     this.broadcastStartOfTurnEvent()
     
@@ -116,9 +149,17 @@ class MainScene extends Phaser.Scene {
     }
   }
 
+  /****************************************************************************
+   * Broadcasts a start of turn event to all entities.
+   ***************************************************************************/
+
   broadcastStartOfTurnEvent() {
     Game.entityManager.getAllEntities().forEach(e => e.receive('startOfTurn'))
   }
+
+  /****************************************************************************
+   * Processes the rogue's turn.
+   ***************************************************************************/
 
   processRogue() {
     const rogue = Game.entityManager.getRogue()
@@ -135,6 +176,10 @@ class MainScene extends Phaser.Scene {
     return acted
   }
 
+  /****************************************************************************
+   * Processes all non-rogue actors' turns.
+   ***************************************************************************/
+
   processNonRogueActors() {
     Game.entityManager
         .getAllEntities()
@@ -143,17 +188,33 @@ class MainScene extends Phaser.Scene {
         .forEach(e => e.query('behaviors').forEach(b => b.act()))
   }
 
+  /****************************************************************************
+   * Increments the game turn counter.
+   ***************************************************************************/
+
   tick() {
     Game.turn++
   }
+
+  /****************************************************************************
+   * Broadcasts an end of turn event to all entities.
+   ***************************************************************************/
 
   broadcastEndOfTurnEvent() {
     Game.entityManager.getAllEntities().forEach(e => e.receive('endOfTurn'))
   }
 
+  /****************************************************************************
+   * Clears the message box.
+   ***************************************************************************/
+
   clearMessageBox() {
     document.querySelector('[data-message]').textContent = ''
   }
+
+  /****************************************************************************
+   * Returns an array of values representing each key pressed this frame.
+   ***************************************************************************/
 
   generatePressedKeysArray() {
     const keys = []
