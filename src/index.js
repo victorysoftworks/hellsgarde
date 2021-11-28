@@ -46,6 +46,7 @@
   const entrance = new Entity()
   entrance.addComponent(new PositionComponent(7, 18))
   entrance.addComponent(new RenderableComponent(234, 0x736598, Layer.Terrain))
+  entrance.addComponent(new HardnessComponent(100))
   entrance.addComponent(new CollisionTriggerComponent(
     new PostMessageEffect(`A magical force repels you from the entrance`),
     e => e.query('rogue')
@@ -54,11 +55,13 @@
   const amulet = new Entity()
   amulet.addComponent(new PositionComponent(18, 11))
   amulet.addComponent(new RenderableComponent(12, 0xffeaa7, Layer.Item))
+  amulet.addComponent(new HardnessComponent(100))
 
   const marilith = new Entity()
   marilith.addComponent(new PositionComponent(12, 8))
   marilith.addComponent(new RenderableComponent(77, 0xd24d57, Layer.Monster))
   marilith.addComponent(new SolidComponent())
+  marilith.addComponent(new HardnessComponent(50))
   marilith.addComponent(new ActorComponent([
     new WanderBehavior()
   ]))
@@ -67,41 +70,49 @@
   statue1.addComponent(new PositionComponent(6, 12))
   statue1.addComponent(new RenderableComponent(38, 0x666666, Layer.Terrain))
   statue1.addComponent(new SolidComponent())
+  statue1.addComponent(new HardnessComponent(100))
 
   const statue2 = new Entity()
   statue2.addComponent(new PositionComponent(8, 12))
   statue2.addComponent(new RenderableComponent(38, 0x666666, Layer.Terrain))
   statue2.addComponent(new SolidComponent())
+  statue2.addComponent(new HardnessComponent(100))
 
   const water1 = new Entity()
   water1.addComponent(new PositionComponent(3, 3))
   water1.addComponent(new RenderableComponent(176, 0x59abe3, Layer.Terrain))
   water1.addComponent(new WaterComponent())
+  water1.addComponent(new HardnessComponent(10))
 
   const water2 = new Entity()
   water2.addComponent(new PositionComponent(4, 3))
   water2.addComponent(new RenderableComponent(176, 0x59abe3, Layer.Terrain))
   water2.addComponent(new WaterComponent())
+  water2.addComponent(new HardnessComponent(10))
 
   const water3 = new Entity()
   water3.addComponent(new PositionComponent(5, 3))
   water3.addComponent(new RenderableComponent(176, 0x59abe3, Layer.Terrain))
   water3.addComponent(new WaterComponent())
+  water3.addComponent(new HardnessComponent(10))
 
   const water4 = new Entity()
   water4.addComponent(new PositionComponent(3, 4))
   water4.addComponent(new RenderableComponent(176, 0x59abe3, Layer.Terrain))
   water4.addComponent(new WaterComponent())
+  water4.addComponent(new HardnessComponent(10))
 
   const water5 = new Entity()
   water5.addComponent(new PositionComponent(4, 4))
   water5.addComponent(new RenderableComponent(176, 0x59abe3, Layer.Terrain))
   water5.addComponent(new WaterComponent())
+  water5.addComponent(new HardnessComponent(10))
 
   const water6 = new Entity()
   water6.addComponent(new PositionComponent(5, 4))
   water6.addComponent(new RenderableComponent(176, 0x59abe3, Layer.Terrain))
   water6.addComponent(new WaterComponent())
+  water6.addComponent(new HardnessComponent(10))
 
   const maxGrass = 64
   for (let i = 0; i < maxGrass; i++) {
@@ -114,6 +125,7 @@
       const color = Random.choice([0x324a3e, 0x324a3e, 0x324a3e, 0x49525c])
       grass.addComponent(new PositionComponent(x, y))
       grass.addComponent(new RenderableComponent(249, color, Layer.Floor))
+      grass.addComponent(new HardnessComponent(0))
       Game.entityManager.addEntity(grass)
     }
   }
