@@ -44,6 +44,15 @@ class MainScene extends Phaser.Scene {
    ***************************************************************************/
 
   create() {
+    this.registerKeys()
+    this.render()
+  }
+
+  /****************************************************************************
+   * Registers keys that the scene responds to.
+   ***************************************************************************/
+
+  registerKeys() {
     this.cursors = this.input.keyboard.createCursorKeys()
     this.one = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ONE)
     this.two = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TWO)
@@ -63,7 +72,6 @@ class MainScene extends Phaser.Scene {
     this.numpadSeven = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.NUMPAD_SEVEN)
     this.numpadEight = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.NUMPAD_EIGHT)
     this.numpadNine = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.NUMPAD_NINE)
-    this.render()
   }
 
   /****************************************************************************
