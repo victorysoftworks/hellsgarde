@@ -10,10 +10,11 @@ class NameComponent extends Component {
    * @param {string} name Name
    ***************************************************************************/
   
-  constructor(name) {
+  constructor(name, article) {
     super(Priority.Default)
 
     this.name = name
+    this.article = article
   }
 
   /****************************************************************************
@@ -25,6 +26,9 @@ class NameComponent extends Component {
   query(query) {
     if (query.type === 'name' || query.type === 'baseName')
       query.result += this.name
+    
+    if (query.type === 'article')
+      query.result = this.article
   }
 
 }
