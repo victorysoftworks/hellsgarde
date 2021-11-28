@@ -8,6 +8,7 @@ class NameComponent extends Component {
    * Constructor.
    * 
    * @param {string} name Name
+   * @param {string} article Article (a, an, the, etc...)
    ***************************************************************************/
   
   constructor(name, article) {
