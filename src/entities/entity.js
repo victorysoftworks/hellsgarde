@@ -6,7 +6,7 @@ class Entity {
   }
 
   addComponent(component) {
-    component.owner = this
+    component.setOwner(this)
 
     this.components.unshift(component)
   }

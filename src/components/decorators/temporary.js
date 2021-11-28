@@ -20,6 +20,17 @@ class TemporaryComponent extends Component {
   }
 
   /****************************************************************************
+   * Sets the component's owning entity.
+   * 
+   * @param {Entity} entity Owning entity
+   ***************************************************************************/
+
+  setOwner(entity) {
+    this.owner = entity
+    this.component.owner = entity
+  }
+
+  /****************************************************************************
    * Handles events broadcast to the component.
    * 
    * @param {Event} event Event to handle

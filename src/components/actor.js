@@ -17,26 +17,24 @@ class ActorComponent extends Component {
   }
 
   /****************************************************************************
+   * Sets the component's owning entity.
+   * 
+   * @param {Entity} entity Owning entity
+   ***************************************************************************/
+
+  setOwner(entity) {
+    this.owner = entity
+    this.behaviors.forEach(b => b.owner = entity)
+  }
+
+  /****************************************************************************
    * Handles events broadcast to the component.
    * 
    * @param {Event} event Event to handle
    ***************************************************************************/
 
   receive(event) {
-    if (event.type === 'startOfTurn')
-      this.bindOwners()
-    
     this.behaviors.forEach(b => b.receive(event))
-  }
-
-  /****************************************************************************
-   * Binds owning entities to behaviors that do not have one yet.
-   ***************************************************************************/
-
-  bindOwners() {
-    this.behaviors.forEach(b => {
-      if ( ! b.owner) b.owner = this.owner
-    })
   }
 
   /****************************************************************************

@@ -15,6 +15,16 @@ class Component {
   }
 
   /****************************************************************************
+   * Sets the component's owning entity.
+   * 
+   * @param {Entity} entity Owning entity
+   ***************************************************************************/
+
+  setOwner(entity) {
+    this.owner = entity
+  }
+
+  /****************************************************************************
    * Handles events broadcast to the component.
    * 
    * @abstract
