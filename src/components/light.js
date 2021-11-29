@@ -11,7 +11,7 @@ class LightComponent extends Component {
    * @param {string} tint Tint color (0x123456)
    ***************************************************************************/
   
-  constructor(radius) {
+  constructor(radius, tint) {
     super(Priority.High)
 
     this.radius = radius
@@ -43,8 +43,8 @@ class LightComponent extends Component {
       query.result += this.radius
     
     if (query.type === 'color') {
-      query.result = this.color
-      query.stopped = false
+      query.result = this.tint
+      query.stopped = true
     }
   }
 
