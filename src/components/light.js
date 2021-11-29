@@ -12,7 +12,7 @@ class LightComponent extends Component {
    ***************************************************************************/
   
   constructor(radius) {
-    super(Priority.Default)
+    super(Priority.High)
 
     this.radius = radius
     this.tint = tint
@@ -42,8 +42,10 @@ class LightComponent extends Component {
     if (query.type === 'lightRadius')
       query.result += this.radius
     
-    if (query.type === 'color')
+    if (query.type === 'color') {
       query.result = this.color
+      query.stopped = false
+    }
   }
 
 }
