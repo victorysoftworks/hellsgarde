@@ -9,19 +9,31 @@ class Geometry {
 
   // Bresenham's line algorithm
 
-  static squaresBetween(x0, y0, x1, y1) {
-    var squares = []
-    var dx = Math.abs(x1 - x0), sx = x0 < x1 ? 1 : -1;
-    var dy = Math.abs(y1 - y0), sy = y0 < y1 ? 1 : -1; 
-    var err = (dx>dy ? dx : -dy)/2;
+  static squaresBetween(x1, y1, x2, y2) {
+    const squares = []
+    const deltaX = Math.abs(x2 - x1)
+    const deltaY = Math.abs(y2 - y1)
+    const slopeX = x1 < x2 ? 1 : -1
+    const slopeY = y1 < y2 ? 1 : -1
+    
+    let error = (deltaX > deltaY ? deltaX : -deltaY) / 2
   
     while (true) {
-      squares.push([x0, y0])
+      squares.push([x1, y1])
       
-      if (x0 === x1 && y0 === y1) break;
-      var e2 = err;
-      if (e2 > -dx) { err -= dy; x0 += sx; }
-      if (e2 < dy) { err += dx; y0 += sy; }
+      if (x1 === x2 && y1 === y2) break
+
+      const e2 = error
+      
+      if (e2 > -deltaX) {
+        error -= deltaY
+        x1 += slopeX
+      }
+
+      if (e2 < deltaY) {
+        error += deltaX
+        y1 += slopeY
+      }
     }
 
     return squares
