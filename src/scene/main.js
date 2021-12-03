@@ -163,10 +163,8 @@ class MainScene extends Phaser.Scene {
 
             let alpha
             
-            if (x === position.x && y === position.y) {
+            if (Geometry.distanceBetween(x, y, position.x, position.y) <= 1) {
               alpha = 1.0
-            } else if (Geometry.distanceBetween(x, y, position.x, position.y) <= 1) {
-              alpha = lightMap[screenY][screenX] > 0.66 ? lightMap[screenY][screenX] : 0.66
             } else {
               alpha = lightMap[screenY][screenX]
             }
