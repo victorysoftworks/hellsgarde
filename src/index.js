@@ -132,7 +132,7 @@
   torch.addComponent(new RenderableComponent(140, 0x666666, Layer.Terrain))
   torch.addComponent(new HardnessComponent(100))
   torch.addComponent(new SolidComponent())
-  torch.addComponent(new LightComponent(3, 0xffcb05))
+  torch.addComponent(new LightComponent(4, 0xffcb05))
 
   const torch2 = new Entity()
   torch2.addComponent(new NameComponent('torch', 'a'))
@@ -140,7 +140,7 @@
   torch2.addComponent(new RenderableComponent(140, 0x666666, Layer.Terrain))
   torch2.addComponent(new HardnessComponent(100))
   torch2.addComponent(new SolidComponent())
-  torch2.addComponent(new LightComponent(3, 0xffcb05))
+  torch2.addComponent(new LightComponent(4, 0xffcb05))
 
   const maxGrass = 64
   for (let i = 0; i < maxGrass; i++) {

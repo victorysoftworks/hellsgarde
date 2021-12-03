@@ -110,6 +110,8 @@ class MainScene extends Phaser.Scene {
     litEntities.forEach(e => {
       let lightPosition = e.query('position')
       let radius = e.query('lightRadius')
+      let bright = Math.floor(radius / 2)
+      let normal = radius
       let shadow = Math.floor(radius * 1.5)
       let mapX = 0
       let mapY = 0
@@ -120,10 +122,12 @@ class MainScene extends Phaser.Scene {
             if (x >= 0 && x < Game.map.terrain[0].length) {
               const distance = Geometry.distanceBetween(x, y, lightPosition.x, lightPosition.y)
 
-              if (distance <= radius) {
+              if (distance <= bright) {
                 lightMap[mapY][mapX] = 1.0
+              } else if (distance <= normal) {
+                lightMap[mapY][mapX] = 0.66
               } else if (distance <= shadow) {
-                lightMap[mapY][mapX] = 0.5
+                lightMap[mapY][mapX] = 0.33
               }
             }
 
@@ -157,9 +161,15 @@ class MainScene extends Phaser.Scene {
                 break
             }
 
-            let alpha = Geometry.distanceBetween(x, y, position.x, position.y) <= 1
-              ? 1.0
-              : lightMap[screenY][screenX]
+            let alpha
+            
+            if (x === position.x && y === position.y) {
+              alpha = 1.0
+            } else if (Geometry.distanceBetween(x, y, position.x, position.y) <= 1) {
+              alpha = lightMap[screenY][screenX] > 0.66 ? lightMap[screenY][screenX] : 0.66
+            } else {
+              alpha = lightMap[screenY][screenX]
+            }
             
             if (x !== position.x || y !== position.y) {
               this.add.image(screenX * this.tileWidth, screenY * this.tileHeight, 'ascii', Game.map.terrain[y][x]).setOrigin(0, 0).setTint(tint).setAlpha(alpha)
