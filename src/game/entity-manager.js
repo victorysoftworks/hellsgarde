@@ -139,4 +139,14 @@ class EntityManager {
     return this.entities.filter(e => e.query('rogue'))[0]
   }
 
+  /****************************************************************************
+   * Gets all entities that shed light.
+   * 
+   * @return {Array}
+   ***************************************************************************/
+
+  getLitEntities() {
+    return this.entities.filter(e => e.query('lit'))
+  }
+
 }

@@ -93,6 +93,48 @@ class MainScene extends Phaser.Scene {
     const maxX = position.x + ((this.cameraWidth - 1) / 2)
     const minY = position.y - ((this.cameraHeight - 1) / 2)
     const maxY = position.y + ((this.cameraHeight - 1) / 2)
+
+    // generate light map
+
+    let litEntities = Game.entityManager.getLitEntities()
+    let lightMap = []
+
+    for (let y = minY; y <= maxY; y++) {
+        let row = []
+        for (let x = minX; x <= maxX; x++) {
+          row.push(0.0)
+        }
+        lightMap.push(row)
+    }
+
+    litEntities.forEach(e => {
+      let lightPosition = e.query('position')
+      let radius = e.query('lightRadius')
+      let shadow = Math.floor(radius * 1.5)
+      let mapX = 0
+      let mapY = 0
+
+      for (let y = minY; y <= maxY; y++) {
+        if (y >= 0 && y < Game.map.terrain.length) {
+          for (let x = minX; x <= maxX; x++) {
+            if (x >= 0 && x < Game.map.terrain[0].length) {
+              const distance = Geometry.distanceBetween(x, y, lightPosition.x, lightPosition.y)
+
+              if (distance <= radius) {
+                lightMap[mapY][mapX] = 1.0
+              } else if (distance <= shadow) {
+                lightMap[mapY][mapX] = 0.5
+              }
+            }
+
+            mapX++
+          }
+        }
+
+        mapX = 0
+        mapY++
+      }
+    })
     
     let screenX = 0
     let screenY = 0
@@ -114,9 +156,13 @@ class MainScene extends Phaser.Scene {
                 tint = 0x666666
                 break
             }
+
+            let alpha = Geometry.distanceBetween(x, y, position.x, position.y) <= 1
+              ? 1.0
+              : lightMap[screenY][screenX]
             
             if (x !== position.x || y !== position.y) {
-              this.add.image(screenX * this.tileWidth, screenY * this.tileHeight, 'ascii', Game.map.terrain[y][x]).setOrigin(0, 0).setTint(tint)
+              this.add.image(screenX * this.tileWidth, screenY * this.tileHeight, 'ascii', Game.map.terrain[y][x]).setOrigin(0, 0).setTint(tint).setAlpha(alpha)
             }
 
             const entityToRender = Game.entityManager.getRenderableEntityAtPosition(x, y)
@@ -125,7 +171,7 @@ class MainScene extends Phaser.Scene {
               let g = entityToRender.query('glyph')
               let c = entityToRender.query('color')
       
-              this.add.image(screenX * this.tileWidth, screenY * this.tileHeight, 'ascii', g).setOrigin(0, 0).setTint(c)
+              this.add.image(screenX * this.tileWidth, screenY * this.tileHeight, 'ascii', g).setOrigin(0, 0).setTint(c).setAlpha(alpha)
             }
           }
 
