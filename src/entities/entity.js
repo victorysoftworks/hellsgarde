@@ -24,11 +24,14 @@ class Entity {
   }
 
   query(type, result = null, params = {}) {
-    const query = { type, result, params }
+    const query = { type, result, params, stopped: false }
 
     this.sortComponentsByPriority()
 
-    this.components.forEach(c => c.query(query))
+    this.components.forEach(c => {
+      if ( ! query.stopped)
+        c.query(query)
+    })
 
     return query.result
   }

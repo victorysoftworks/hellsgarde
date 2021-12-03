@@ -126,6 +126,22 @@
   water6.addComponent(new WaterComponent())
   water6.addComponent(new HardnessComponent(10))
 
+  const torch = new Entity()
+  torch.addComponent(new NameComponent('torch', 'a'))
+  torch.addComponent(new PositionComponent(7, 14))
+  torch.addComponent(new RenderableComponent(140, 0x666666, Layer.Terrain))
+  torch.addComponent(new HardnessComponent(100))
+  torch.addComponent(new SolidComponent())
+  torch.addComponent(new LightComponent(4, 0xffcb05))
+
+  const torch2 = new Entity()
+  torch2.addComponent(new NameComponent('torch', 'a'))
+  torch2.addComponent(new PositionComponent(18, 10))
+  torch2.addComponent(new RenderableComponent(140, 0x666666, Layer.Terrain))
+  torch2.addComponent(new HardnessComponent(100))
+  torch2.addComponent(new SolidComponent())
+  torch2.addComponent(new LightComponent(4, 0xffcb05))
+
   const maxGrass = 64
   for (let i = 0; i < maxGrass; i++) {
     let x = Random.number(0, Game.map.terrain[0].length - 1)
@@ -154,7 +170,9 @@
     water3,
     water4,
     water5,
-    water6
+    water6,
+    torch,
+    torch2
   ])
 
   /****************************************************************************
