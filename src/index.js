@@ -75,6 +75,7 @@
   statue1.addComponent(new PositionComponent(6, 12))
   statue1.addComponent(new RenderableComponent(38, 0x666666, Layer.Terrain))
   statue1.addComponent(new SolidComponent())
+  statue1.addComponent(new OpaqueComponent())
   statue1.addComponent(new HardnessComponent(100))
 
   const statue2 = new Entity()
@@ -82,6 +83,7 @@
   statue2.addComponent(new PositionComponent(8, 12))
   statue2.addComponent(new RenderableComponent(38, 0x666666, Layer.Terrain))
   statue2.addComponent(new SolidComponent())
+  statue2.addComponent(new OpaqueComponent())
   statue2.addComponent(new HardnessComponent(100))
 
   const water1 = new Entity()
