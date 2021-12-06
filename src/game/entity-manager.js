@@ -149,4 +149,14 @@ class EntityManager {
     return this.entities.filter(e => e.query('lit'))
   }
 
+  /****************************************************************************
+   * Gets all opaque entities.
+   * 
+   * @return {Array}
+   ***************************************************************************/
+
+  getOpaqueEntities() {
+    return this.entities.filter(e => e.query('opaque'))
+  }
+
 }

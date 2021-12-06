@@ -139,6 +139,58 @@ class MainScene extends Phaser.Scene {
         mapY++
       }
     })
+
+    // generate FOV map
+
+    let fovMap = Game.map.fov
+    let opaqueEntities = Game.entityManager.getOpaqueEntities()
+
+    opaqueEntities.forEach(e => {
+      const opaquePosition = e.query('position')
+
+      fovMap[opaquePosition.y][opaquePosition.x] = 0
+    })
+
+    let edgeFovSquares = []
+
+    for (let y = minY; y <= maxY; y++) {
+      if (y >= 0 && y < Game.map.terrain.length) {
+        for (let x = minX; x <= maxX; x++) {
+          if (x >= 0 && x < Game.map.terrain[0].length) {
+            if (y === minY || y === maxY) {
+              edgeFovSquares.push([x, y])
+            } else if (x === minX || x === maxX) {
+              edgeFovSquares.push([x, y])
+            }
+          }
+        }
+      }
+    }
+
+    let sightMap = []
+
+    for (let y = 0; y < fovMap.length; y++) {
+      let row = []
+      for (let x = 0; x < fovMap[0].length; x++) {
+        row.push(0)
+      }
+      sightMap.push(row)
+    }
+
+    edgeFovSquares.forEach(square => {
+      const squaresBetween = Geometry.squaresBetween(position.x, position.y, square[0], square[1])
+
+      for (let s of squaresBetween) {
+        if (fovMap[s[1]][s[0]] > 0) {
+          sightMap[s[1]][s[0]] = 1
+        } else {
+          sightMap[s[1]][s[0]] = 1
+          break
+        }
+      }
+    })
+
+    // render
     
     let screenX = 0
     let screenY = 0
@@ -165,6 +217,8 @@ class MainScene extends Phaser.Scene {
             
             if (Geometry.distanceBetween(x, y, position.x, position.y) <= 1) {
               alpha = 1.0
+            } else if (sightMap[y][x] === 0) {
+              alpha = 0.0
             } else {
               alpha = lightMap[screenY][screenX]
             }
