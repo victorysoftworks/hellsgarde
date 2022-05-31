@@ -1,7 +1,8 @@
 /******************************************************************************
  * An entity with the Emotion component has an emotional state. Certain
  * behaviors function only/differently when its owning entity is in a given
- * emotional state.
+ * emotional state. An entity can have more than one emotional state, i.e.
+ * both "angry" and "sad".
  *****************************************************************************/
 
 class EmotionComponent extends Component {
@@ -17,17 +18,6 @@ class EmotionComponent extends Component {
   }
 
   /****************************************************************************
-   * Handles events broadcast to the component.
-   * 
-   * @param {Event} event Event to handle
-   ***************************************************************************/
-
-  receive(event) {
-    if (event.type === 'setEmotion')
-      this.emotion = event.params.emotion
-  }
-
-  /****************************************************************************
    * Handles queries made to the component.
    * 
    * @param {Query} query Query to handle
@@ -35,7 +25,7 @@ class EmotionComponent extends Component {
 
   query(query) {
     if (query.type === 'emotion')
-      query.result = this.emotion
+      query.result.push(this.emotion)
   }
 
 }
