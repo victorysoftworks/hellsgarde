@@ -66,6 +66,7 @@
   marilith.addComponent(new RenderableComponent(77, 0xd24d57, Layer.Monster))
   marilith.addComponent(new SolidComponent())
   marilith.addComponent(new HardnessComponent(50))
+  marilith.addComponent(new EmotionComponent('angry'))
   marilith.addComponent(new ActorComponent([
     new WanderBehavior()
   ]))
