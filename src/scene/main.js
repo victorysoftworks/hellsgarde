@@ -102,7 +102,7 @@ class MainScene extends Phaser.Scene {
     for (let y = minY; y <= maxY; y++) {
         let row = []
         for (let x = minX; x <= maxX; x++) {
-          row.push(0.0)
+          row.push(1.0) // 0.0
         }
         lightMap.push(row)
     }
