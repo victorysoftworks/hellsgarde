@@ -29,8 +29,8 @@ class Pathfinding {
       dijkstra.push(row)
     }
 
-    for (y = 0; y < collisionMapHeight; y++) {
-      for (x = 0; x < collisionMapWidth; x++) {
+    for (let y = 0; y < collisionMapHeight; y++) {
+      for (let x = 0; x < collisionMapWidth; x++) {
         const goalPointsAtLocation = goals.filter(goal => {
           return x === goal[0] && y === goal[1]
         })
